@@ -5,8 +5,9 @@
 On heartbeat, run this loop once and report briefly.
 
 Quick command (local state update/check):
-- `make heartbeat-touch`
+- `make heartbeat-cycle` (runs check → touch)
 - `make heartbeat-check`
+- `make heartbeat-touch`
 (Equivalent raw script commands still work.)
 
 1) Build only **ONE atomic feature** per cycle.
