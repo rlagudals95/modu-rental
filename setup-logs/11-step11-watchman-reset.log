@@ -1,0 +1,12 @@
+=== STEP 11: clear watchman recrawl warning ===
+Wed Feb 18 17:04:13 KST 2026
+{
+    "version": "2026.01.12.00",
+    "watch-del": true,
+    "root": "/Users/hyeongmin/.openclaw/workspace"
+}
+{
+    "version": "2026.01.12.00",
+    "watcher": "fsevents",
+    "watch": "/Users/hyeongmin/.openclaw/workspace"
+}

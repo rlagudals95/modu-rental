@@ -1,0 +1,28 @@
+=== STEP 11: create new app from kit ===
+Wed Feb 18 16:57:33 KST 2026
+✅ Created app: ../apps/profit-scout
+
+Next steps:
+1) cd "../apps/profit-scout"
+2) cp .env.example .env
+3) npm install
+4) npx expo start --ios
+
+Remember to update:
+- app.json: ios.bundleIdentifier / android.package
+- .env: EXPO_PUBLIC_API_BASE_URL
+
+added 945 packages, and audited 946 packages in 4s
+
+177 packages are looking for funding
+  run `npm fund` for details
+
+10 moderate severity vulnerabilities
+
+To address issues that do not require attention, run:
+  npm audit fix
+
+To address all issues (including breaking changes), run:
+  npm audit fix --force
+
+Run `npm audit` for details.
