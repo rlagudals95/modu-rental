@@ -21,6 +21,10 @@ fi
 if [[ "${1:-}" == "--check" ]]; then
   mode="check"
   shift
+elif [[ "${1:-}" == --* ]]; then
+  echo "Unknown option: ${1}" >&2
+  usage >&2
+  exit 1
 fi
 
 STATE_FILE="${1:-memory/heartbeat-state.json}"
