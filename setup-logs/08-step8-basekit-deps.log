@@ -1,0 +1,33 @@
+=== STEP 8: bootstrap profit-app base kit ===
+Wed Feb 18 16:49:21 KST 2026
+
+added 933 packages, and audited 934 packages in 8s
+
+174 packages are looking for funding
+  run `npm fund` for details
+
+10 moderate severity vulnerabilities
+
+To address issues that do not require attention, run:
+  npm audit fix
+
+To address all issues (including breaking changes), run:
+  npm audit fix --force
+
+Run `npm audit` for details.
+
+added 4 packages, and audited 938 packages in 1s
+
+177 packages are looking for funding
+  run `npm fund` for details
+
+10 moderate severity vulnerabilities
+
+To address issues that do not require attention, run:
+  npm audit fix
+
+To address all issues (including breaking changes), run:
+  npm audit fix --force
+
+Run `npm audit` for details.
+deps installed

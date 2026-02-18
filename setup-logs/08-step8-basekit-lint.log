@@ -1,0 +1,6 @@
+=== STEP 8: validate base kit lint ===
+Wed Feb 18 16:50:51 KST 2026
+
+> rn-profit-base-kit@1.0.0 lint
+> expo lint
+
