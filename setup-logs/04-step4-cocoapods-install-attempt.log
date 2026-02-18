@@ -1,0 +1,4 @@
+=== STEP 4: attempt cocoapods install (non-sudo) ===
+Wed Feb 18 16:18:24 KST 2026
+ERROR:  While executing gem ... (Gem::FilePermissionError)
+    You don't have write permissions for the /Library/Ruby/Gems/2.6.0 directory.

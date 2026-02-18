@@ -1,0 +1,12 @@
+=== STEP 3: Xcode / iOS simulator check ===
+Wed Feb 18 14:58:27 KST 2026
+-- xcode-select path
+/Library/Developer/CommandLineTools
+-- xcodebuild version
+xcode-select: error: tool 'xcodebuild' requires Xcode, but active developer directory '/Library/Developer/CommandLineTools' is a command line tools instance
+-- Command Line Tools package
+zsh:9: command not found: pkgutil
+-- simulator app check
+xcode_app_found=no
+-- attempt simulator list
+xcrun: error: unable to find utility "simctl", not a developer tool or in PATH

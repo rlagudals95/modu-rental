@@ -1,0 +1,10 @@
+=== Xcode installation re-check ===
+Wed Feb 18 15:09:48 KST 2026
+-- xcode app dir
+drwxr-xr-x@ 3 root  wheel  96 Feb 18 15:06 /Applications/Xcode.app
+-- xcode-select
+/Library/Developer/CommandLineTools
+-- xcodebuild version
+xcode-select: error: tool 'xcodebuild' requires Xcode, but active developer directory '/Library/Developer/CommandLineTools' is a command line tools instance
+-- simctl availability
+xcrun: error: unable to find utility "simctl", not a developer tool or in PATH

@@ -1,0 +1,20 @@
+=== STEP 4: fix CocoaPods install via Homebrew (Ruby 2.6 ffi issue) ===
+Wed Feb 18 16:20:36 KST 2026
+installing cocoapods with brew (avoids system Ruby gem ffi conflict)
+==> Fetching downloads for: cocoapods
+==> Installing dependencies for cocoapods: libyaml and ruby
+==> Installing cocoapods dependency: libyaml
+==> Pouring libyaml--0.2.5.arm64_tahoe.bottle.tar.gz
+🍺  /opt/homebrew/Cellar/libyaml/0.2.5: 11 files, 360.6KB
+==> Installing cocoapods dependency: ruby
+==> Pouring ruby--4.0.1.arm64_tahoe.bottle.1.tar.gz
+🍺  /opt/homebrew/Cellar/ruby/4.0.1: 19,293 files, 61MB
+==> Installing cocoapods
+==> Pouring cocoapods--1.16.2_2.arm64_tahoe.bottle.tar.gz
+🍺  /opt/homebrew/Cellar/cocoapods/1.16.2_2: 13,729 files, 30.3MB
+==> Running `brew cleanup cocoapods`...
+Disable this behaviour by setting `HOMEBREW_NO_INSTALL_CLEANUP=1`.
+Hide these hints with `HOMEBREW_NO_ENV_HINTS=1` (see `man brew`).
+-- verify pod
+/opt/homebrew/bin/pod
+1.16.2

@@ -1,0 +1,74 @@
+=== STEP 1: install watchman (if missing) ===
+Wed Feb 18 14:56:34 KST 2026
+installing watchman via brew...
+==> Fetching downloads for: watchman
+==> Installing dependencies for watchman: boost, double-conversion, fmt, gflags, glog, libevent, libsodium, snappy, folly, fizz, wangle, xxhash, fbthrift, fb303, edencommon, pcre2, mpdecimal and python@3.14
+==> Installing watchman dependency: boost
+==> Installing boost dependency: zstd
+==> Pouring zstd--1.5.7_1.arm64_tahoe.bottle.tar.gz
+🍺  /opt/homebrew/Cellar/zstd/1.5.7_1: 32 files, 2.3MB
+==> Pouring boost--1.90.0_1.arm64_tahoe.bottle.tar.gz
+🍺  /opt/homebrew/Cellar/boost/1.90.0_1: 16,255 files, 356.5MB
+==> Installing watchman dependency: double-conversion
+==> Pouring double-conversion--3.4.0.arm64_tahoe.bottle.tar.gz
+🍺  /opt/homebrew/Cellar/double-conversion/3.4.0: 29 files, 275.1KB
+==> Installing watchman dependency: fmt
+==> Pouring fmt--12.1.0.arm64_tahoe.bottle.tar.gz
+🍺  /opt/homebrew/Cellar/fmt/12.1.0: 29 files, 1MB
+==> Installing watchman dependency: gflags
+==> Pouring gflags--2.3.0.arm64_tahoe.bottle.tar.gz
+🍺  /opt/homebrew/Cellar/gflags/2.3.0: 27 files, 747.0KB
+==> Installing watchman dependency: glog
+==> Pouring glog--0.7.1.arm64_tahoe.bottle.tar.gz
+🍺  /opt/homebrew/Cellar/glog/0.7.1: 25 files, 441.8KB
+==> Installing watchman dependency: libevent
+==> Pouring libevent--2.1.12_1.arm64_tahoe.bottle.tar.gz
+🍺  /opt/homebrew/Cellar/libevent/2.1.12_1: 58 files, 2.4MB
+==> Installing watchman dependency: libsodium
+==> Pouring libsodium--1.0.21.arm64_tahoe.bottle.tar.gz
+🍺  /opt/homebrew/Cellar/libsodium/1.0.21: 84 files, 1MB
+==> Installing watchman dependency: snappy
+==> Pouring snappy--1.2.2.arm64_tahoe.bottle.tar.gz
+🍺  /opt/homebrew/Cellar/snappy/1.2.2: 19 files, 179.2KB
+==> Installing watchman dependency: folly
+==> Pouring folly--2026.01.12.00_1.arm64_tahoe.bottle.tar.gz
+🍺  /opt/homebrew/Cellar/folly/2026.01.12.00_1: 1,153 files, 32.0MB
+==> Installing watchman dependency: fizz
+==> Pouring fizz--2026.01.12.00_1.arm64_tahoe.bottle.tar.gz
+🍺  /opt/homebrew/Cellar/fizz/2026.01.12.00_1: 217 files, 4.4MB
+==> Installing watchman dependency: wangle
+==> Pouring wangle--2026.01.12.00_1.arm64_tahoe.bottle.tar.gz
+🍺  /opt/homebrew/Cellar/wangle/2026.01.12.00_1: 119 files, 3.7MB
+==> Installing watchman dependency: xxhash
+==> Pouring xxhash--0.8.3.arm64_tahoe.bottle.tar.gz
+🍺  /opt/homebrew/Cellar/xxhash/0.8.3: 28 files, 575.6KB
+==> Installing watchman dependency: fbthrift
+==> Pouring fbthrift--2026.01.12.00_1.arm64_tahoe.bottle.tar.gz
+🍺  /opt/homebrew/Cellar/fbthrift/2026.01.12.00_1: 1,164 files, 43.1MB
+==> Installing watchman dependency: fb303
+==> Pouring fb303--2026.01.12.00_1.arm64_tahoe.bottle.tar.gz
+🍺  /opt/homebrew/Cellar/fb303/2026.01.12.00_1: 56 files, 4.4MB
+==> Installing watchman dependency: edencommon
+==> Pouring edencommon--2026.01.12.00_1.arm64_tahoe.bottle.tar.gz
+🍺  /opt/homebrew/Cellar/edencommon/2026.01.12.00_1: 84 files, 1.9MB
+==> Installing watchman dependency: pcre2
+==> Pouring pcre2--10.47_1.arm64_tahoe.bottle.tar.gz
+🍺  /opt/homebrew/Cellar/pcre2/10.47_1: 244 files, 7.3MB
+==> Installing watchman dependency: mpdecimal
+==> Pouring mpdecimal--4.0.1.arm64_tahoe.bottle.tar.gz
+🍺  /opt/homebrew/Cellar/mpdecimal/4.0.1: 22 files, 660.9KB
+==> Installing watchman dependency: python@3.14
+==> Installing python@3.14 dependency: sqlite
+==> Pouring sqlite--3.51.2_1.arm64_tahoe.bottle.tar.gz
+🍺  /opt/homebrew/Cellar/sqlite/3.51.2_1: 13 files, 5.2MB
+==> Pouring python@3.14--3.14.3_1.arm64_tahoe.bottle.tar.gz
+🍺  /opt/homebrew/Cellar/python@3.14/3.14.3_1: 3,764 files, 75.3MB
+==> Installing watchman
+==> Pouring watchman--2026.01.12.00_1.arm64_tahoe.bottle.tar.gz
+🍺  /opt/homebrew/Cellar/watchman/2026.01.12.00_1: 26 files, 14.8MB
+==> Running `brew cleanup watchman`...
+Disable this behaviour by setting `HOMEBREW_NO_INSTALL_CLEANUP=1`.
+Hide these hints with `HOMEBREW_NO_ENV_HINTS=1` (see `man brew`).
+-- verify watchman
+/opt/homebrew/bin/watchman
+2026.01.12.00

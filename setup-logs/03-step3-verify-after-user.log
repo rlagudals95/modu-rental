@@ -1,0 +1,8 @@
+=== STEP 3: post-user-completion verification ===
+Wed Feb 18 16:12:55 KST 2026
+-- xcode-select
+/Applications/Xcode.app/Contents/Developer
+-- xcodebuild
+Xcode 26.2
+Build version 17C52
+-- simctl list (head)

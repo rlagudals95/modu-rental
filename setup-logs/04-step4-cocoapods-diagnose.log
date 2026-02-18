@@ -1,0 +1,7 @@
+=== STEP 4: diagnose cocoapods missing ===
+Wed Feb 18 16:18:18 KST 2026
+ruby 2.6.10p210 (2022-04-12 revision 67958) [universal.arm64e-darwin25]
+3.0.3.1
+
+/Library/Ruby/Gems/2.6.0
+/Users/hyeongmin/.gem/ruby/2.6.0:/Library/Ruby/Gems/2.6.0:/System/Library/Frameworks/Ruby.framework/Versions/2.6/usr/lib/ruby/gems/2.6.0

@@ -1,0 +1,52 @@
+=== STEP 6: create Expo test project ===
+Wed Feb 18 16:13:51 KST 2026
+Creating an Expo project using the default template.
+
+To choose from all available templates (https://github.com/expo/expo/tree/main/templates) pass in the --template arg:
+  $ npx create-expo-app --template
+
+To choose from all available examples (https://github.com/expo/examples) pass in the --example arg:
+  $ npx create-expo-app --example
+
+> npm install
+
+added 915 packages, and audited 916 packages in 35s
+
+168 packages are looking for funding
+  run `npm fund` for details
+
+10 moderate severity vulnerabilities
+
+To address issues that do not require attention, run:
+  npm audit fix
+
+To address all issues (including breaking changes), run:
+  npm audit fix --force
+
+Run `npm audit` for details.
+
+✅ Your project is ready!
+
+To run your project, navigate to the directory and run one of the following npm commands.
+
+- cd testApp
+- npm run android
+- npm run ios
+- npm run web
+
+added 1 package, and audited 917 packages in 931ms
+
+168 packages are looking for funding
+  run `npm fund` for details
+
+10 moderate severity vulnerabilities
+
+To address issues that do not require attention, run:
+  npm audit fix
+
+To address all issues (including breaking changes), run:
+  npm audit fix --force
+
+Run `npm audit` for details.
+-- package name
+testapp

@@ -1,0 +1,17 @@
+=== POST-IOS-RUNTIME: verify simulator availability ===
+Wed Feb 18 16:43:14 KST 2026
+== Runtimes ==
+iOS 26.2 (26.2 - 23C54) - com.apple.CoreSimulator.SimRuntime.iOS-26-2
+== Devices ==
+-- iOS 26.2 --
+    iPhone 17 Pro (8330EBBA-A6BE-4E24-BD64-148A7BF03918) (Shutdown) 
+    iPhone 17 Pro Max (2FDF806D-C754-4655-9503-C46A519D0F08) (Shutdown) 
+    iPhone Air (FC5C1260-BDAF-4B7E-943A-EB495E5390FA) (Shutdown) 
+    iPhone 17 (1A2D9E60-1E5A-4C13-8064-886D974686B5) (Shutdown) 
+    iPhone 16e (E32D0125-A1D0-4EA1-87AA-0FC3E5DA92B8) (Shutdown) 
+    iPad Pro 13-inch (M5) (CB41507A-C45C-494F-9322-BFBA14274857) (Shutdown) 
+    iPad Pro 11-inch (M5) (CC7EEBAB-69FE-4777-961A-3C7C89B0A4AA) (Shutdown) 
+    iPad mini (A17 Pro) (F2046BD5-8196-4398-B29E-9B1591937D07) (Shutdown) 
+    iPad (A16) (399EFD7D-301C-4EB6-AA44-0758E8E4BCE9) (Shutdown) 
+    iPad Air 13-inch (M3) (F046375B-164F-4D7B-950B-DE93D4A2D816) (Shutdown) 
+    iPad Air 11-inch (M3) (45A45E3C-FA75-4357-9ABD-344A99F53131) (Shutdown) 

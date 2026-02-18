@@ -1,0 +1,22 @@
+=== STEP 7: create react-native-base-template ===
+Wed Feb 18 16:47:38 KST 2026
+-- template tree (top level)
+total 992
+drwxr-xr-x  18 hyeongmin  staff     576 Feb 18 16:14 .
+drwxr-xr-x  17 hyeongmin  staff     544 Feb 18 16:47 ..
+drwxr-xr-x   5 hyeongmin  staff     160 Feb 18 16:14 .expo
+-rw-r--r--   1 hyeongmin  staff     453 Oct 26  1985 .gitignore
+drwxr-xr-x   4 hyeongmin  staff     128 Feb 18 16:13 .vscode
+-rw-r--r--   1 hyeongmin  staff     716 Feb 18 16:47 README.md
+drwxr-xr-x   5 hyeongmin  staff     160 Feb 18 16:13 app
+-rw-r--r--   1 hyeongmin  staff    1212 Feb 18 16:13 app.json
+drwxr-xr-x   3 hyeongmin  staff      96 Feb 18 16:13 assets
+drwxr-xr-x   9 hyeongmin  staff     288 Feb 18 16:13 components
+drwxr-xr-x   3 hyeongmin  staff      96 Feb 18 16:13 constants
+-rw-r--r--   1 hyeongmin  staff     237 Oct 26  1985 eslint.config.js
+-rw-r--r--   1 hyeongmin  staff     110 Feb 18 16:43 expo-env.d.ts
+drwxr-xr-x   5 hyeongmin  staff     160 Feb 18 16:13 hooks
+-rw-r--r--   1 hyeongmin  staff  479076 Feb 18 16:14 package-lock.json
+-rw-r--r--   1 hyeongmin  staff    1371 Feb 18 16:13 package.json
+drwxr-xr-x   3 hyeongmin  staff      96 Feb 18 16:13 scripts
+-rw-r--r--   1 hyeongmin  staff     242 Oct 26  1985 tsconfig.json

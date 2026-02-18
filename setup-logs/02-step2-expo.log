@@ -1,0 +1,27 @@
+=== STEP 2: Expo CLI preparation ===
+Wed Feb 18 14:57:46 KST 2026
+-- node/npm versions
+v22.22.0
+10.9.4
+-- global npm packages (before cleanup)
+/opt/homebrew/lib
++-- @anthropic-ai/claude-code@2.1.27
++-- clawdbot@2026.1.24-3
++-- corepack@0.34.0
++-- npm@10.9.4
++-- openclaw@2026.2.15
+`-- vercel@50.17.1
+
+-- cleanup deprecated expo-cli if present
+global expo-cli not found; skip
+-- check expo via npx
+54.0.23
+-- global npm packages (after cleanup)
+/opt/homebrew/lib
++-- @anthropic-ai/claude-code@2.1.27
++-- clawdbot@2026.1.24-3
++-- corepack@0.34.0
++-- npm@10.9.4
++-- openclaw@2026.2.15
+`-- vercel@50.17.1
+

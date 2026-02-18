@@ -1,0 +1,5 @@
+=== STEP 4: CocoaPods pre-check ===
+Wed Feb 18 16:13:46 KST 2026
+pod_installed=no
+ruby 2.6.10p210 (2022-04-12 revision 67958) [universal.arm64e-darwin25]
+3.0.3.1

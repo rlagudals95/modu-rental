@@ -1,0 +1,7 @@
+=== STEP 6: retry expo start --ios ===
+Wed Feb 18 16:19:11 KST 2026
+Starting project at /Users/hyeongmin/.openclaw/workspace/testApp
+React Compiler enabled
+Metro is running in CI mode, reloads are disabled. Remove CI=true to enable watch mode.
+Starting Metro Bundler
+CommandError: No iOS devices available in Simulator.app

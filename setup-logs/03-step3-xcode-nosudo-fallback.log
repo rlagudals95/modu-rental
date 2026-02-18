@@ -1,0 +1,5 @@
+=== STEP 3: non-sudo fallback check ===
+Wed Feb 18 15:10:19 KST 2026
+xcode-select: error: --switch must be run as root (e.g. `sudo xcode-select --switch <xcode_folder_path>`).
+/Library/Developer/CommandLineTools
+xcode-select: error: tool 'xcodebuild' requires Xcode, but active developer directory '/Library/Developer/CommandLineTools' is a command line tools instance

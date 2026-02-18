@@ -1,0 +1,8 @@
+=== STEP 4: pod setup verify ===
+Wed Feb 18 16:21:10 KST 2026
+    [33mWARNING: CocoaPods requires your terminal to be using UTF-8 encoding.
+    Consider adding the following to ~/.profile:
+
+    export LANG=en_US.UTF-8
+    [0m
+Setup completed
