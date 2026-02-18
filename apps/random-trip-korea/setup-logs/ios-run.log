@@ -1,0 +1,8 @@
+Starting project at /Users/hyeongmin/.openclaw/workspace/apps/random-trip-korea
+React Compiler enabled
+Metro is running in CI mode, reloads are disabled. Remove CI=true to enable watch mode.
+Starting Metro Bundler
+› Opening exp://192.168.0.100:8083 on iPhone 17 Pro
+Waiting on http://localhost:8083
+Logs for your project will appear below.
+iOS Bundled 423ms node_modules/expo-router/entry.js (1189 modules)
