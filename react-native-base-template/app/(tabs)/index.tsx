@@ -3,6 +3,8 @@ import { Pressable, StyleSheet, View } from 'react-native';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { env } from '@/src/config/env';
+import { showInterstitial, showRewarded } from '@/src/features/monetization/ads-service';
+import { initRevenueCat } from '@/src/features/monetization/subscription-service';
 import { useHealthQuery } from '@/src/features/sample/use-health-query';
 import { useAppStore } from '@/src/store/app-store';
 
@@ -31,8 +33,23 @@ export default function HomeScreen() {
         {health.data && <ThemedText>Status: {health.data.status}</ThemedText>}
       </View>
 
+      <View style={styles.card}>
+        <ThemedText type="subtitle">Monetization Smoke Test</ThemedText>
+        <View style={styles.row}>
+          <Pressable style={styles.button} onPress={() => void initRevenueCat()}>
+            <ThemedText style={styles.buttonText}>Init RevenueCat</ThemedText>
+          </Pressable>
+          <Pressable style={styles.button} onPress={() => void showInterstitial()}>
+            <ThemedText style={styles.buttonText}>Show Interstitial</ThemedText>
+          </Pressable>
+          <Pressable style={styles.button} onPress={() => void showRewarded()}>
+            <ThemedText style={styles.buttonText}>Show Rewarded</ThemedText>
+          </Pressable>
+        </View>
+      </View>
+
       <ThemedText style={styles.hint}>
-        Tip: copy .env.example to .env and set EXPO_PUBLIC_API_BASE_URL.
+        AdMob/RevenueCat는 Expo Go가 아닌 Dev Client에서만 동작함.
       </ThemedText>
     </ThemedView>
   );
@@ -50,6 +67,11 @@ const styles = StyleSheet.create({
     gap: 8,
     borderWidth: StyleSheet.hairlineWidth,
     borderColor: '#8884',
+  },
+  row: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 8,
   },
   button: {
     backgroundColor: '#0A84FF',

@@ -48,12 +48,23 @@ npx expo start --ios
 - `src/features/monetization/*` - 구독/광고 스켈레톤
 - `app/(tabs)/index.tsx` - base dashboard
 
-## Monetization Skeleton Included
+## Monetization Included (RevenueCat + AdMob)
 
-- `subscription-service.ts`: 요금제 조회/구매 흐름 인터페이스
-- `ads-service.ts`: 전면/리워드 광고 노출 정책 인터페이스
+- `subscription-service.ts`: RevenueCat 초기화/오퍼링/구매 함수
+- `ads-service.ts`: AdMob Interstitial/Rewarded 표시 함수
 
-> 현재는 mock/stub 상태이며, 실제 SDK(RevenueCat, AdMob 등) 연결만 하면 바로 확장 가능.
+### Required Setup
+
+1. `.env.example` 복사 후 키 입력
+2. `app.json`의 AdMob App ID 실제 값으로 교체
+3. Expo Go 대신 **Dev Client/EAS Build** 사용 (광고/결제 네이티브 모듈 필요)
+
+```bash
+npx expo prebuild
+npx expo run:ios
+```
+
+> 개발 모드(`__DEV__`)에서는 AdMob 테스트 광고 unit id를 사용하도록 구성됨.
 
 ## Clone Strategy for Multiple Apps
 

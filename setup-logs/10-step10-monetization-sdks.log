@@ -1,0 +1,17 @@
+=== STEP 10: install RevenueCat + AdMob SDKs ===
+Wed Feb 18 16:54:12 KST 2026
+
+added 8 packages, and audited 946 packages in 3s
+
+177 packages are looking for funding
+  run `npm fund` for details
+
+10 moderate severity vulnerabilities
+
+To address issues that do not require attention, run:
+  npm audit fix
+
+To address all issues (including breaking changes), run:
+  npm audit fix --force
+
+Run `npm audit` for details.
