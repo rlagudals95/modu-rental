@@ -45,15 +45,35 @@ npx expo start --ios
 - `src/providers/query-provider.tsx` - React Query provider
 - `src/store/app-store.ts` - Zustand store
 - `src/features/sample/use-health-query.ts` - sample query
+- `src/features/monetization/*` - 구독/광고 스켈레톤
 - `app/(tabs)/index.tsx` - base dashboard
+
+## Monetization Skeleton Included
+
+- `subscription-service.ts`: 요금제 조회/구매 흐름 인터페이스
+- `ads-service.ts`: 전면/리워드 광고 노출 정책 인터페이스
+
+> 현재는 mock/stub 상태이며, 실제 SDK(RevenueCat, AdMob 등) 연결만 하면 바로 확장 가능.
 
 ## Clone Strategy for Multiple Apps
 
-1. 이 폴더를 복사해서 신규 앱 폴더 생성
-2. `package.json`의 `name` 변경
-3. `.env`의 API 주소 변경
-4. `app.json` 앱 이름/번들ID 변경
-5. 공통 모듈은 유지하고 도메인 기능만 추가
+자동 복제 스크립트 사용:
+
+```bash
+./scripts/new-app.sh "My New App"
+# or
+./scripts/new-app.sh "My New App" ../apps
+```
+
+스크립트가 자동으로 처리:
+1. 새 앱 폴더 생성
+2. `package.json.name` 변경
+3. `app.json`의 name/slug/scheme 변경
+4. 기본 bundle id/package 템플릿 주입 (`com.yourcompany.*`)
+
+생성 후 해야 할 일:
+- `ios.bundleIdentifier`, `android.package`를 실제 값으로 수정
+- `.env` API 주소 설정
 
 ## Evidence
 
