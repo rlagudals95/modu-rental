@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Link Boards</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header>
+      <div>
+        <h1>Link Boards</h1>
+        <p>Offline-first quick access with keyboard launcher</p>
+      </div>
+      <button id="new-board">+ Board</button>
+    </header>
+
+    <section id="launcher">
+      <input id="quick-open" placeholder="Quick open: type title or URL…" />
+      <div id="quick-results"></div>
+    </section>
+
+    <main id="boards"></main>
+
+    <template id="card-template">
+      <article class="card" draggable="true">
+        <div class="card-main">
+          <a class="card-title" target="_blank" rel="noopener noreferrer"></a>
+          <p class="card-url"></p>
+        </div>
+        <div class="card-actions">
+          <button data-action="edit">Edit</button>
+          <button data-action="delete">Delete</button>
+        </div>
+      </article>
+    </template>
+
+    <script type="module" src="newtab.js"></script>
+  </body>
+</html>

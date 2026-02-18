@@ -1,0 +1,16 @@
+{
+  "name": "momentum-link-boards",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Production-lean fast-follower MVP for Momentum pain point: offline link boards.",
+  "scripts": {
+    "clean": "rm -rf dist",
+    "build": "npm run clean && tsc -p tsconfig.json && node scripts/copy-static.mjs",
+    "package": "npm run build && cd dist && zip -r ../momentum-link-boards-mvp.zip .",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "devDependencies": {
+    "@types/chrome": "^0.0.280",
+    "typescript": "^5.9.2"
+  }
+}
