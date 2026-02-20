@@ -3,6 +3,7 @@
 ## Product Build Loop (Lean, Safe)
 
 On heartbeat, run this loop once and report briefly.
+Quick start: `make heartbeat-help` (command reference: `docs/heartbeat.md`).
 
 Quick command (local state update/check):
 - `make heartbeat-cycle` (runs check → touch)
