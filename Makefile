@@ -1,4 +1,16 @@
-.PHONY: heartbeat-check heartbeat-verify heartbeat-doctor heartbeat-status heartbeat-init heartbeat-selftest heartbeat-touch heartbeat-cycle
+.PHONY: heartbeat-help heartbeat-check heartbeat-verify heartbeat-doctor heartbeat-status heartbeat-init heartbeat-selftest heartbeat-touch heartbeat-cycle
+
+heartbeat-help:
+	@echo "Heartbeat commands:"
+	@echo "  make heartbeat-help      # show this command list"
+	@echo "  make heartbeat-init      # create default state file if missing"
+	@echo "  make heartbeat-check     # validate state file schema"
+	@echo "  make heartbeat-verify    # alias of heartbeat-check"
+	@echo "  make heartbeat-doctor    # show recovery hints when check fails"
+	@echo "  make heartbeat-status    # print last build_loop timestamp"
+	@echo "  make heartbeat-touch     # update build_loop timestamp"
+	@echo "  make heartbeat-cycle     # run check then touch"
+	@echo "  make heartbeat-selftest  # run init + verify + status"
 
 heartbeat-check:
 	./scripts/heartbeat-touch.sh --check memory/heartbeat-state.json
