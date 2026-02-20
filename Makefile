@@ -1,4 +1,4 @@
-.PHONY: heartbeat-check heartbeat-verify heartbeat-doctor heartbeat-status heartbeat-init heartbeat-touch heartbeat-cycle
+.PHONY: heartbeat-check heartbeat-verify heartbeat-doctor heartbeat-status heartbeat-init heartbeat-selftest heartbeat-touch heartbeat-cycle
 
 heartbeat-check:
 	./scripts/heartbeat-touch.sh --check memory/heartbeat-state.json
@@ -19,6 +19,8 @@ heartbeat-status:
 
 heartbeat-init:
 	@python3 scripts/heartbeat-init.py
+
+heartbeat-selftest: heartbeat-init heartbeat-verify heartbeat-status
 
 heartbeat-touch:
 	./scripts/heartbeat-touch.sh memory/heartbeat-state.json
