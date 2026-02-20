@@ -1,4 +1,4 @@
-.PHONY: heartbeat-check heartbeat-verify heartbeat-doctor heartbeat-touch heartbeat-cycle
+.PHONY: heartbeat-check heartbeat-verify heartbeat-doctor heartbeat-status heartbeat-touch heartbeat-cycle
 
 heartbeat-check:
 	./scripts/heartbeat-touch.sh --check memory/heartbeat-state.json
@@ -13,6 +13,9 @@ heartbeat-doctor:
 		echo "  2) make heartbeat-check        # validate again" && \
 		echo "  3) cat memory/heartbeat-state.json" && \
 		false)
+
+heartbeat-status:
+	@python3 scripts/heartbeat-status.py
 
 heartbeat-touch:
 	./scripts/heartbeat-touch.sh memory/heartbeat-state.json
