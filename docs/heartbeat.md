@@ -76,7 +76,13 @@ If `make heartbeat-check` fails because `memory/heartbeat-state.json` is missing
 
 ## Quick Recovery Bundles (Copy/Paste)
 
-Invalid JSON:
+One-command safe recovery (recommended):
+
+```bash
+make heartbeat-recover
+```
+
+Invalid JSON (manual steps):
 
 ```bash
 make heartbeat-touch
@@ -84,7 +90,7 @@ make heartbeat-check
 make heartbeat-status
 ```
 
-Missing state file:
+Missing state file (manual steps):
 
 ```bash
 make heartbeat-init
