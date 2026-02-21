@@ -46,6 +46,13 @@ Quick reference for the local heartbeat build-loop helpers.
 - Use `heartbeat-recover` for one-command safe recovery (`init` + `check` + `touch` + `status`).
 - Use `heartbeat-ci` when you need deterministic pass/fail verification after recovery.
 
+### Quick Decision Table (`heartbeat-cycle` vs `heartbeat-touch`)
+
+| Situation | Command |
+|---|---|
+| Routine heartbeat run where you want safety + validation | `make heartbeat-cycle` |
+| You already validated state in this session and only need timestamp refresh | `make heartbeat-touch` |
+
 ## Typical Flow
 
 1. `make heartbeat-selftest`
