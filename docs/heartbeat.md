@@ -87,6 +87,10 @@ Expected success output includes lines like:
 - `Updated memory/heartbeat-state.json (build_loop=...)`
 - `build_loop: ... (YYYY-MM-DD HH:MM:SS KST)`
 
+Failure signatures (quick mapping):
+- `Missing state file: memory/heartbeat-state.json` → run `make heartbeat-recover` (or `heartbeat-init` path).
+- `Invalid JSON in memory/heartbeat-state.json` → run `make heartbeat-recover` (or manual invalid-JSON steps).
+
 Invalid JSON (manual steps):
 
 ```bash
