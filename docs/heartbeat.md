@@ -31,6 +31,13 @@ Quick reference for the local heartbeat build-loop helpers.
 - `make heartbeat-selftest`  
   Run `heartbeat-init + heartbeat-verify + heartbeat-status`.
 
+## Which Command Should I Use?
+
+- Use `heartbeat-init` when the state file is missing and you want safe bootstrap (no overwrite).
+- Use `heartbeat-touch` when validation already passes and you only need to refresh the loop timestamp.
+- Use `heartbeat-cycle` for normal operation (`check` + `touch` in one step).
+- Use `heartbeat-selftest` for quick health verification (`init` + `verify` + `status`).
+
 ## Typical Flow
 
 1. `make heartbeat-selftest`
