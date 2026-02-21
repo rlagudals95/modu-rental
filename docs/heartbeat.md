@@ -58,6 +58,14 @@ Quick reference for the local heartbeat build-loop helpers.
 - [ ] One measurable metric recorded for that improvement (even if proxy).
 - [ ] `memory/heartbeat-state.json` touched and changes committed.
 
+## Heartbeat Report Template (Copy/Paste)
+
+- Done:
+- Next:
+- Metric:
+- Confidence:
+- Blocker/Ask:
+
 ## Failure Example (Invalid JSON)
 
 If `make heartbeat-check` fails with an invalid JSON error:
