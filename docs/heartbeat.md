@@ -116,6 +116,12 @@ Failure signatures (quick mapping):
 - `Missing state file: memory/heartbeat-state.json` → run `make heartbeat-recover` (or `heartbeat-init` path).
 - `Invalid JSON in memory/heartbeat-state.json` → run `make heartbeat-recover` (or manual invalid-JSON steps).
 
+### Failure Triage Order (Fast Path)
+
+1. `make heartbeat-recover`
+2. `make heartbeat-check`
+3. `make heartbeat-status`
+
 Invalid JSON (manual steps):
 
 ```bash
