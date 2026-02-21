@@ -1,4 +1,4 @@
-.PHONY: heartbeat-help heartbeat-check heartbeat-verify heartbeat-doctor heartbeat-status heartbeat-init heartbeat-selftest heartbeat-touch heartbeat-cycle
+.PHONY: heartbeat-help heartbeat-check heartbeat-verify heartbeat-doctor heartbeat-status heartbeat-init heartbeat-selftest heartbeat-recover heartbeat-touch heartbeat-cycle
 
 heartbeat-help:
 	@echo "Heartbeat commands:"
@@ -11,6 +11,7 @@ heartbeat-help:
 	@echo "  make heartbeat-touch     # update build_loop timestamp"
 	@echo "  make heartbeat-cycle     # run check then touch"
 	@echo "  make heartbeat-selftest  # run init + verify + status"
+	@echo "  make heartbeat-recover   # run init + check + touch + status"
 
 heartbeat-check:
 	./scripts/heartbeat-touch.sh --check memory/heartbeat-state.json
@@ -33,6 +34,8 @@ heartbeat-init:
 	@python3 scripts/heartbeat-init.py
 
 heartbeat-selftest: heartbeat-init heartbeat-verify heartbeat-status
+
+heartbeat-recover: heartbeat-init heartbeat-check heartbeat-touch heartbeat-status
 
 heartbeat-touch:
 	./scripts/heartbeat-touch.sh memory/heartbeat-state.json
