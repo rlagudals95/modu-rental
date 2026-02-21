@@ -82,6 +82,11 @@ One-command safe recovery (recommended):
 make heartbeat-recover
 ```
 
+Expected success output includes lines like:
+- `OK: memory/heartbeat-state.json`
+- `Updated memory/heartbeat-state.json (build_loop=...)`
+- `build_loop: ... (YYYY-MM-DD HH:MM:SS KST)`
+
 Invalid JSON (manual steps):
 
 ```bash
