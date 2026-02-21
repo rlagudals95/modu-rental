@@ -69,3 +69,21 @@ If `make heartbeat-check` fails because `memory/heartbeat-state.json` is missing
    - `make heartbeat-touch`
 4. Confirm status:
    - `make heartbeat-status`
+
+## Quick Recovery Bundles (Copy/Paste)
+
+Invalid JSON:
+
+```bash
+make heartbeat-touch
+make heartbeat-check
+make heartbeat-status
+```
+
+Missing state file:
+
+```bash
+make heartbeat-init
+make heartbeat-check
+make heartbeat-touch
+```
