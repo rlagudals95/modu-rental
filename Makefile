@@ -1,4 +1,4 @@
-.PHONY: heartbeat-help heartbeat-check heartbeat-verify heartbeat-doctor heartbeat-status heartbeat-init heartbeat-selftest heartbeat-recover heartbeat-touch heartbeat-cycle
+.PHONY: heartbeat-help heartbeat-check heartbeat-verify heartbeat-doctor heartbeat-status heartbeat-init heartbeat-selftest heartbeat-recover heartbeat-ci heartbeat-touch heartbeat-cycle
 
 heartbeat-help:
 	@echo "Heartbeat commands:"
@@ -12,6 +12,7 @@ heartbeat-help:
 	@echo "  make heartbeat-cycle     # run check then touch"
 	@echo "  make heartbeat-selftest  # run init + verify + status"
 	@echo "  make heartbeat-recover   # run init + check + touch + status (fastest recovery)"
+	@echo "  make heartbeat-ci        # run recover + check (deterministic pass/fail)"
 	@echo ""
 	@echo "Tip: if anything looks broken, run: make heartbeat-recover"
 
@@ -38,6 +39,10 @@ heartbeat-init:
 heartbeat-selftest: heartbeat-init heartbeat-verify heartbeat-status
 
 heartbeat-recover: heartbeat-init heartbeat-check heartbeat-touch heartbeat-status
+
+heartbeat-ci:
+	@$(MAKE) heartbeat-recover
+	@$(MAKE) heartbeat-check
 
 heartbeat-touch:
 	./scripts/heartbeat-touch.sh memory/heartbeat-state.json
