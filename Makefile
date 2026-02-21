@@ -11,7 +11,9 @@ heartbeat-help:
 	@echo "  make heartbeat-touch     # update build_loop timestamp"
 	@echo "  make heartbeat-cycle     # run check then touch"
 	@echo "  make heartbeat-selftest  # run init + verify + status"
-	@echo "  make heartbeat-recover   # run init + check + touch + status"
+	@echo "  make heartbeat-recover   # run init + check + touch + status (fastest recovery)"
+	@echo ""
+	@echo "Tip: if anything looks broken, run: make heartbeat-recover"
 
 heartbeat-check:
 	./scripts/heartbeat-touch.sh --check memory/heartbeat-state.json
