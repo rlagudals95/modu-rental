@@ -36,3 +36,16 @@ Quick reference for the local heartbeat build-loop helpers.
 1. `make heartbeat-selftest`
 2. `make heartbeat-cycle`
 3. `make heartbeat-status`
+
+## Failure Example (Invalid JSON)
+
+If `make heartbeat-check` fails with an invalid JSON error:
+
+1. Inspect the file:
+   - `cat memory/heartbeat-state.json`
+2. Recreate/update with a valid structure:
+   - `make heartbeat-touch`
+3. Validate again:
+   - `make heartbeat-check`
+4. Confirm last timestamp:
+   - `make heartbeat-status`
