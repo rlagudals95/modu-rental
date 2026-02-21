@@ -49,3 +49,16 @@ If `make heartbeat-check` fails with an invalid JSON error:
    - `make heartbeat-check`
 4. Confirm last timestamp:
    - `make heartbeat-status`
+
+## Failure Example (Missing State File)
+
+If `make heartbeat-check` fails because `memory/heartbeat-state.json` is missing:
+
+1. Create default state file safely:
+   - `make heartbeat-init`
+2. Validate structure:
+   - `make heartbeat-check`
+3. Record current build loop timestamp:
+   - `make heartbeat-touch`
+4. Confirm status:
+   - `make heartbeat-status`
