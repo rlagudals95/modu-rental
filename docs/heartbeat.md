@@ -122,6 +122,8 @@ Failure signatures (quick mapping):
 2. `make heartbeat-check`
 3. `make heartbeat-status`
 
+Expected success signal: output includes `OK: memory/heartbeat-state.json`.
+
 Invalid JSON (manual steps):
 
 ```bash
