@@ -52,6 +52,12 @@ Quick reference for the local heartbeat build-loop helpers.
 2. `make heartbeat-cycle`
 3. `make heartbeat-status`
 
+## Definition of Done (Atomic Cycle)
+
+- [ ] Exactly one atomic improvement completed (or one clearly bounded maintenance task).
+- [ ] One measurable metric recorded for that improvement (even if proxy).
+- [ ] `memory/heartbeat-state.json` touched and changes committed.
+
 ## Failure Example (Invalid JSON)
 
 If `make heartbeat-check` fails with an invalid JSON error:
