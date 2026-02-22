@@ -83,6 +83,8 @@ Example (5 lines):
 - Confidence: MEDIUM
 - Blocker-Ask: None.
 
+Anti-pattern: Do not bundle multiple unrelated edits into a single heartbeat cycle.
+
 ## Failure Example (Invalid JSON)
 
 If `make heartbeat-check` fails with an invalid JSON error:
