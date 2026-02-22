@@ -80,6 +80,7 @@ Quick reference for the local heartbeat build-loop helpers.
 - Anti-pattern: Do not bundle multiple unrelated edits into a single heartbeat cycle.
 - Stop condition: If no high-value action exists, end the cycle and reply `HEARTBEAT_OK`.
 - Priority order: user-facing tasks > reliability/stability > docs polish.
+- Escalation trigger: if a blocker impacts user-facing reliability or could cause data loss, report immediately instead of continuing edits.
 
 Example (5 lines):
 - Done: Ran `make heartbeat-cycle` and committed timestamp update.
