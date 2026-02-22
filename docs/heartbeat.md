@@ -75,14 +75,14 @@ Quick reference for the local heartbeat build-loop helpers.
 
 ### Operator Guardrails
 
-- Safety: Do not execute external/public actions from heartbeat runs without explicit approval.
-- Length: Keep heartbeat report output to 5 lines max (Done/Next/Metric/Confidence/Blocker-Ask).
-- Anti-pattern: Do not bundle multiple unrelated edits into a single heartbeat cycle.
-- Stop condition: If no high-value action exists, end the cycle and reply `HEARTBEAT_OK`.
+- Safety: Avoid all external/public actions unless explicit approval is given.
+- Length: Keep reports to 5 lines max (Done/Next/Metric/Confidence/Blocker-Ask).
+- Anti-pattern: Avoid bundling unrelated edits in one heartbeat cycle.
+- Stop condition: End the cycle with `HEARTBEAT_OK` when no high-value action exists.
 - Priority order: user-facing tasks > reliability/stability > docs polish.
-- Escalation trigger: if a blocker impacts user-facing reliability or could cause data loss, report immediately instead of continuing edits.
-- Confidence rubric: HIGH=direct evidence/verification, MEDIUM=partial verification or stable proxy, LOW=assumption-heavy or early signal only.
-- Metric quality: prefer outcome metrics; if unavailable, use one explicit process metric as fallback.
+- Escalation trigger: Report immediately when a blocker risks user-facing reliability or data loss.
+- Confidence rubric: Use HIGH for direct verification, MEDIUM for partial/proxy verification, LOW for assumption-heavy early signals.
+- Metric quality: Prefer outcome metrics; if unavailable, use one explicit process metric.
 
 Example (5 lines):
 - Done: Ran `make heartbeat-cycle` and committed timestamp update.
