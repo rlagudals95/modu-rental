@@ -71,7 +71,7 @@ Quick reference for the local heartbeat build-loop helpers.
 - Next:
 - Metric:
 - Confidence:
-- Blocker/Ask:
+- Blocker-Ask:
 
 Safety note: Do not execute external/public actions from heartbeat runs without explicit approval.
 Length note: Keep heartbeat report output to 5 lines max (Done/Next/Metric/Confidence/Blocker-Ask).
