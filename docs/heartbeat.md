@@ -73,6 +73,8 @@ Quick reference for the local heartbeat build-loop helpers.
 - Confidence:
 - Blocker/Ask:
 
+Safety note: Do not execute external/public actions from heartbeat runs without explicit approval.
+
 ## Failure Example (Invalid JSON)
 
 If `make heartbeat-check` fails with an invalid JSON error:
