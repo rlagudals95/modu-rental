@@ -73,8 +73,12 @@ Quick reference for the local heartbeat build-loop helpers.
 - Confidence:
 - Blocker-Ask:
 
-Safety note: Do not execute external/public actions from heartbeat runs without explicit approval.
-Length note: Keep heartbeat report output to 5 lines max (Done/Next/Metric/Confidence/Blocker-Ask).
+### Operator Guardrails
+
+- Safety: Do not execute external/public actions from heartbeat runs without explicit approval.
+- Length: Keep heartbeat report output to 5 lines max (Done/Next/Metric/Confidence/Blocker-Ask).
+- Anti-pattern: Do not bundle multiple unrelated edits into a single heartbeat cycle.
+- Stop condition: If no high-value action exists, end the cycle and reply `HEARTBEAT_OK`.
 
 Example (5 lines):
 - Done: Ran `make heartbeat-cycle` and committed timestamp update.
@@ -82,9 +86,6 @@ Example (5 lines):
 - Metric: 1 clarification line added.
 - Confidence: MEDIUM
 - Blocker-Ask: None.
-
-Anti-pattern: Do not bundle multiple unrelated edits into a single heartbeat cycle.
-Stop condition: If no high-value action exists, end the cycle and reply `HEARTBEAT_OK`.
 
 ## Failure Example (Invalid JSON)
 
