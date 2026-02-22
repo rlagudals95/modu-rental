@@ -79,6 +79,7 @@ Quick reference for the local heartbeat build-loop helpers.
 - Length: Keep heartbeat report output to 5 lines max (Done/Next/Metric/Confidence/Blocker-Ask).
 - Anti-pattern: Do not bundle multiple unrelated edits into a single heartbeat cycle.
 - Stop condition: If no high-value action exists, end the cycle and reply `HEARTBEAT_OK`.
+- Priority order: user-facing tasks > reliability/stability > docs polish.
 
 Example (5 lines):
 - Done: Ran `make heartbeat-cycle` and committed timestamp update.
