@@ -76,6 +76,13 @@ Quick reference for the local heartbeat build-loop helpers.
 Safety note: Do not execute external/public actions from heartbeat runs without explicit approval.
 Length note: Keep heartbeat report output to 5 lines max (Done/Next/Metric/Confidence/Blocker-Ask).
 
+Example (5 lines):
+- Done: Ran `make heartbeat-cycle` and committed timestamp update.
+- Next: Add one small doc clarification for command choice.
+- Metric: 1 clarification line added.
+- Confidence: MEDIUM
+- Blocker-Ask: None.
+
 ## Failure Example (Invalid JSON)
 
 If `make heartbeat-check` fails with an invalid JSON error:
