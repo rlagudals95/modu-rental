@@ -81,6 +81,7 @@ Quick reference for the local heartbeat build-loop helpers.
 - Stop condition: If no high-value action exists, end the cycle and reply `HEARTBEAT_OK`.
 - Priority order: user-facing tasks > reliability/stability > docs polish.
 - Escalation trigger: if a blocker impacts user-facing reliability or could cause data loss, report immediately instead of continuing edits.
+- Confidence rubric: HIGH=direct evidence/verification, MEDIUM=partial verification or stable proxy, LOW=assumption-heavy or early signal only.
 
 Example (5 lines):
 - Done: Ran `make heartbeat-cycle` and committed timestamp update.
