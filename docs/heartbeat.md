@@ -76,14 +76,13 @@ Quick reference for the local heartbeat build-loop helpers.
 ### Operator Guardrails
 
 - Safety: Avoid all external/public actions unless explicit approval is given.
-- Length: Keep reports to 5 lines max (Done/Next/Metric/Confidence/Blocker-Ask).
+- Length/Tone: Keep reports to 5 lines max (Done/Next/Metric/Confidence/Blocker-Ask), concise and factual.
 - Anti-pattern: Avoid bundling unrelated edits in one heartbeat cycle.
 - Stop condition: End the cycle with `HEARTBEAT_OK` when no high-value action exists.
 - Priority order: user-facing tasks > reliability/stability > docs polish.
 - Escalation trigger: Report immediately when a blocker risks user-facing reliability or data loss.
 - Confidence rubric: Use HIGH for direct verification, MEDIUM for partial/proxy verification, LOW for assumption-heavy early signals.
 - Metric quality: Prefer outcome metrics; if unavailable, use one explicit process metric.
-- Report tone: Keep updates concise, factual, and free of filler.
 - Timebox: Cap each heartbeat task at 15 minutes; defer anything larger to the next cycle.
 
 Example (5 lines):
