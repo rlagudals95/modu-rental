@@ -83,6 +83,7 @@ Quick reference for the local heartbeat build-loop helpers.
 - Escalation trigger: Report immediately when a blocker risks user-facing reliability or data loss.
 - Confidence rubric: Use HIGH for direct verification, MEDIUM for partial/proxy verification, LOW for assumption-heavy early signals.
 - Metric quality: Prefer outcome metrics; if unavailable, use one explicit process metric.
+- Report tone: Keep updates concise, factual, and free of filler.
 
 Example (5 lines):
 - Done: Ran `make heartbeat-cycle` and committed timestamp update.
