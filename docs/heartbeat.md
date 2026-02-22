@@ -82,6 +82,7 @@ Quick reference for the local heartbeat build-loop helpers.
 - Priority order: user-facing tasks > reliability/stability > docs polish.
 - Escalation trigger: if a blocker impacts user-facing reliability or could cause data loss, report immediately instead of continuing edits.
 - Confidence rubric: HIGH=direct evidence/verification, MEDIUM=partial verification or stable proxy, LOW=assumption-heavy or early signal only.
+- Metric quality: prefer outcome metrics; if unavailable, use one explicit process metric as fallback.
 
 Example (5 lines):
 - Done: Ran `make heartbeat-cycle` and committed timestamp update.
