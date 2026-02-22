@@ -30,3 +30,18 @@ Output format:
 - Metric:
 - Confidence:
 - Blocker/Ask:
+
+## OpenClaw Insight Briefing (new)
+
+When relevant updates/cases are available, include a short "Apply Briefing" with up to 3 candidates:
+- Candidate
+- Expected upside
+- Risk
+- Time to apply
+- Rollback
+- Recommendation (apply/hold/skip)
+
+Always finish with approval trigger:
+"적용할까요? (1번 / 1+3번 / 전부 / 보류)"
+
+Never apply config changes, updates, or external actions without explicit approval.
