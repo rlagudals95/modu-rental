@@ -84,6 +84,7 @@ Example (5 lines):
 - Blocker-Ask: None.
 
 Anti-pattern: Do not bundle multiple unrelated edits into a single heartbeat cycle.
+Stop condition: If no high-value action exists, end the cycle and reply `HEARTBEAT_OK`.
 
 ## Failure Example (Invalid JSON)
 
