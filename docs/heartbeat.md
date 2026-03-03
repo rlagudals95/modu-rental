@@ -71,7 +71,7 @@ Quick reference for the local heartbeat build-loop helpers.
 - Next:
 - Metric:
 - Confidence:
-- Blocker-Ask:
+- Blocker/Ask:
 
 ### Operator Guardrails
 
