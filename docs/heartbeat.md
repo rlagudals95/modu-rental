@@ -122,6 +122,12 @@ If `make heartbeat-check` fails because `memory/heartbeat-state.json` is missing
 
 ## Quick Recovery Bundles (Copy/Paste)
 
+30-second quickstart (first response):
+
+```bash
+make heartbeat-recover && make heartbeat-status
+```
+
 One-command safe recovery (recommended):
 
 ```bash
