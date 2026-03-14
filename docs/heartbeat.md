@@ -2,6 +2,8 @@
 
 Quick reference for the local heartbeat build-loop helpers.
 
+Default daily command: `make heartbeat-cycle` (safe check + timestamp touch).
+
 ## Commands
 
 - `make heartbeat-help`  
