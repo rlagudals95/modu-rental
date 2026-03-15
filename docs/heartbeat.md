@@ -82,7 +82,7 @@ Default daily command: `make heartbeat-cycle` (safe check + timestamp touch).
 - Timebox: Cap each heartbeat task at 15 minutes; defer anything larger to the next cycle.
 - Anti-pattern: Avoid bundling unrelated edits in one heartbeat cycle.
 - Escalation trigger: Report immediately when a blocker risks user-facing reliability or data loss.
-- Stop condition: End the cycle with `HEARTBEAT_OK` when no high-value action exists.
+- Stop condition: End the cycle with `HEARTBEAT_OK` only when no action is needed for that poll.
 - Metric quality: Prefer outcome metrics; if unavailable, use one explicit process metric.
 - Confidence rubric: Use HIGH for direct verification, MEDIUM for partial/proxy verification, LOW for assumption-heavy early signals.
 - Length/Tone: Keep reports to 5 lines max (Done/Next/Metric/Confidence/Blocker-Ask), concise and factual.
