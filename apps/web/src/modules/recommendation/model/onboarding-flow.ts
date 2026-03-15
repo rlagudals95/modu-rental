@@ -58,7 +58,7 @@ export const getRecommendationNextStepId = (
     return null;
   }
 
-  return recommendationStepOrder[currentIndex + 1];
+  return recommendationStepOrder[currentIndex + 1] ?? null;
 };
 
 export const getRecommendationProgress = (currentStepId: RecommendationStepId): number => {
