@@ -1,18 +1,23 @@
 ---
-status: "draft"
+status: "approved"
 owner_role: "pm"
 source_request: "PRD: docs/prds/modurent-demand-validation.md"
 affected_paths:
   - "apps/web/src/app/page.tsx"
-  - "apps/web/src/app/consult/*"
-  - "apps/web/src/app/admin/*"
+  - "apps/web/src/app/result/page.tsx"
+  - "apps/web/src/app/consult/page.tsx"
+  - "apps/web/src/app/admin/page.tsx"
   - "apps/web/src/app/admin/leads/*"
-  - "apps/web/src/modules/lead/*"
+  - "apps/web/src/app/admin/products/*"
+  - "apps/web/src/modules/landing/*"
+  - "apps/web/src/modules/recommendation/*"
+  - "apps/web/src/modules/consultation/*"
   - "apps/web/src/modules/admin/*"
-  - "packages/core/*"
-  - "packages/db/*"
+  - "packages/core/src/schemas/*"
+  - "packages/core/src/services/*"
+  - "packages/db/src/schema/*"
+  - "packages/db/src/client/*"
   - "packages/analytics/*"
-  - "apps/web/src/lib/analytics.ts"
 dependencies:
   - "docs/prds/modurent-demand-validation.md"
   - "docs/work-items/20260315-rental-intake-funnel/feature-spec.md"
@@ -23,50 +28,50 @@ skip_reason: null
 
 ## Problem
 
-렌탈이 필요한 사용자는 블로그, 카페, 오픈마켓, 카카오 상담을 오가며 정보를 비교하지만, 자신의 조건을 한 번에 정리해 상담으로 연결할 간단한 진입점이 부족하다. 현재 저장소에는 리드 수집, 상담 요청, 결제 데모, 어드민이 이미 있지만 사용자-facing 카피와 입력 항목이 아직 `모두의렌탈` 도메인에 최적화되어 있지 않아 실제 렌탈 수요 신호를 측정하기 어렵다. 따라서 첫 실제 제품 use case로서 "렌탈 의도가 있는 사용자가 카테고리/긴급도/연락 선호를 남기고 상담으로 이어지는가"를 검증해야 한다.
+- 정수기 렌탈을 검토하는 사용자는 가격보다 계약 구조를 이해하지 못해 손해를 보는 경우가 많다.
+- 기존 렌탈몰은 상품을 많이 보여주지만, 내 상황에 맞는 shortlist와 해지 리스크 설명은 약하다.
+- 상담 중심 판매 구조 탓에 사용자는 결정을 내리기 전에 이미 피로해지고, 운영자는 상담 전 결정도가 낮은 리드를 많이 받게 된다.
 
 ## Target User
 
-가정용 정수기, 공기청정기, 비데, 생활가전 렌탈을 검토하는 개인 사용자와 사무실/소형 매장용 렌탈이 급하게 필요한 소상공인 또는 운영 담당자. "지금 어떤 제품을 얼마나 빨리 써야 하는지"는 분명하지만, 여러 판매 채널을 돌며 조건을 다시 설명하는 데 피로를 느끼는 사람이 핵심 대상이다.
+- 서울·수도권의 28~39세 직장인
+- 1~2인 가구, 전월세 거주 비중이 높고 2년 내 이사 가능성이 있는 사용자
+- 정수기 렌탈을 검토하지만 상담 전에 후보를 좁히고 계약 리스크를 먼저 이해하고 싶은 사람
 
 ## Goal
 
-`모두의렌탈`을 단순 스타터 데모가 아니라 실제 렌탈 수요 검증용 제품으로 전환한다. 랜딩에서 리드, 리드에서 상담 요청까지 이어지는 핵심 퍼널이 카테고리 기반 rental intake 흐름으로 작동하는지 확인한다. 운영자가 어떤 카테고리, 어떤 유입 메시지, 어떤 연락 방식이 강한 신호로 이어지는지 어드민에서 바로 해석할 수 있게 만든다.
+- 이 work item은 `모두의렌탈` MVP의 첫 구현 slice로서 공개 추천 흐름을 `정수기` 카테고리 하나에 고정한다.
+- 사용자가 `/`에서 자신의 상황을 답하고, `/result`에서 상위 3개 후보와 계약 요약을 본 뒤, `/consult`로 자연스럽게 넘어가는 흐름을 만든다.
+- 운영자는 `/admin`과 `/admin/leads`에서 추천 맥락과 상담 전환 신호를 읽을 수 있어야 한다.
 
 ## Non-Goals
 
-- 결제 성공 자체를 PMF 판단의 핵심 기준으로 삼는 것
-- 정교한 추천 알고리즘이나 가격 비교 엔진
-- 렌탈 제휴사 관리 백오피스
-- CRM 자동화, 문자 발송, 콜센터 연동
-- 회원가입과 로그인 기반 개인화
-- 자동 견적 엔진 구축
-- 제휴사 inventory 연동
-- 관리자 인증과 권한 체계 도입
-- 실제 정산/환불/구독형 결제 운영
-- 다중 지역/다국어 지원
-- Consultation Handoff
-- Payment Intent Signal
+- 공기청정기 공개 추천 플로우
+- 상품 편집용 관리자 폼과 수정 액션
+- 실시간 제휴사 API 연동
+- 자동 계약 체결, 결제, 정산
+- LLM 자유 생성형 설명 문장
+- 전국 설치 스케줄링, 모바일 앱, 복잡한 인증 체계
 
 ## Success Metric
 
-- `landing_to_lead_conversion >= 5%`
-- `qualified_lead_rate >= 60%`
-- `lead_to_consult_request_rate >= 20% within 7 days`
-- `category_completion_rate >= 85%` for submitted leads
-- Stop signal: 랜딩 세션 300회 이후에도 `landing_to_lead_conversion < 2%`
-- Pivot signal: 리드는 생기지만 `lead_to_consult_request_rate < 10%`면 카피보다 qualification 방식 재설계 우선
+- `landing_to_onboarding_start_rate >= 35%`
+- `onboarding_completion_rate >= 60%`
+- `recommendation_to_consult_click_rate >= 20%`
+- `consult_request_to_connected_call_rate >= 50% within 7 days`
+- `connected_call_to_contract_conversion_rate >= 15% within 30 days`
+- Stop signal: 온보딩 시작 100건 이후에도 `onboarding_completion_rate < 35%`
+- Stop signal: 결과 화면 조회 50건 이후에도 `recommendation_to_consult_click_rate < 10%`
 
 ## Acceptance Criteria
 
-- [ ] 사용자가 `/`에서 `모두의렌탈` 기준의 렌탈 카피와 CTA를 보고, generic boilerplate/B2B SaaS 예시 없이 리드 폼을 이해할 수 있다.
-- [ ] 사용자가 필수 qualification 항목을 채워 리드를 제출하면 category, urgency, preferred contact가 함께 저장되고 성공 메시지를 본다.
-- [ ] 운영자가 `/admin` 또는 `/admin/leads`에서 새 qualification 필드를 확인해 후속 연락 우선순위를 판단할 수 있다.
-- [ ] 핵심 이벤트는 일반 page view와 구분되어 rental lead submission 및 consult request 신호로 기록된다.
+- [ ] 사용자가 `/`에서 "정수기 렌탈 계약을 대신 읽어주고 3개만 골라준다"는 가치를 이해하고 온보딩을 시작할 수 있다.
+- [ ] 사용자가 8개 추천 질문과 마지막 연락처/동의 단계를 완료하면 lead가 저장되고 `/result?leadId=<id>`로 이동한다.
+- [ ] 사용자가 `/result?leadId=<id>`에서 정확히 3개의 정수기 추천 결과와 각 상품의 월 납부액, 할인 종료 후 금액, 의무사용기간, 전체 계약기간, 총 예상 납부액, 관리 방식, 해지 주의 포인트, 추천 이유를 본다.
+- [ ] 사용자의 이사 가능성, 예산, 관리 선호, 필수 기능, 설치 공간 같은 입력이 추천 결과에 실제로 반영된다.
+- [ ] 사용자가 결과 화면에서 카카오 상담을 1순위 CTA로 보고, `/consult?leadId=<id>&productSlug=<slug>`로 이동해 선택 상품과 기본 정보가 채워진 상태에서 상담 요청을 남길 수 있다.
+- [ ] 운영자가 `/admin/leads`에서 리드의 추천 입력 맥락과 상담 전환 여부를 확인할 수 있다.
 
 ## Open Questions
 
-- 첫 버전에서 어떤 카테고리 세트를 기본값으로 둘지: 정수기/공기청정기/비데 중심으로 시작할지 여부
-- qualified lead의 최소 기준을 어떤 조합으로 볼지: category + urgency + consent만으로 충분한지 여부
-- preferred contact 기본값을 전화로 둘지, 카카오를 강조할지 여부
-- 상담 요청 단계에서 lead 데이터를 자동 prefill할지, 같은 세션 내에서만 이어받을지 여부
+- 없음. 구현 blocking decision은 현재 feature, UX, FE, BE spec에서 고정한다.

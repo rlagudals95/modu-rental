@@ -1,5 +1,5 @@
 ---
-status: "draft"
+status: "approved"
 owner_role: "product-squad"
 related_prd: "docs/prds/modurent-demand-validation.md"
 related_work_item: "docs/work-items/20260315-rental-intake-funnel"
@@ -7,10 +7,14 @@ feature_slug: "rental-intake-funnel"
 implementation_readiness: "ready"
 affected_paths:
   - "apps/web/src/app/page.tsx"
-  - "apps/web/src/app/consult/*"
-  - "apps/web/src/app/admin/*"
+  - "apps/web/src/app/result/page.tsx"
+  - "apps/web/src/app/consult/page.tsx"
+  - "apps/web/src/app/admin/page.tsx"
   - "apps/web/src/app/admin/leads/*"
-  - "apps/web/src/modules/lead/*"
+  - "apps/web/src/app/admin/products/*"
+  - "apps/web/src/modules/landing/*"
+  - "apps/web/src/modules/recommendation/*"
+  - "apps/web/src/modules/consultation/*"
   - "apps/web/src/modules/admin/*"
   - "packages/core/*"
   - "packages/db/*"
@@ -18,6 +22,10 @@ affected_paths:
   - "apps/web/src/lib/analytics.ts"
 dependencies:
   - "docs/prds/modurent-demand-validation.md"
+  - "docs/work-items/20260315-rental-intake-funnel/brief.md"
+  - "docs/work-items/20260315-rental-intake-funnel/ux-review.md"
+  - "docs/work-items/20260315-rental-intake-funnel/frontend-spec.md"
+  - "docs/work-items/20260315-rental-intake-funnel/backend-spec.md"
 skip_reason: null
 ---
 
@@ -25,104 +33,117 @@ skip_reason: null
 
 ## Feature Summary
 
-랜딩과 리드 폼을 `모두의렌탈` 카피와 렌탈 intake 질문으로 바꾸고, 카테고리/긴급도/연락 선호를 구조화해 저장한다.
+`rental-intake-funnel`은 모두의렌탈 MVP의 첫 공개 흐름을 정수기 카테고리 하나로 좁혀 구현하는 feature slice다. 랜딩, 대화형 온보딩, 추천 결과, 상담 handoff, 관리자 read exposure를 한 번에 연결한다.
 
 ## Problem
 
-렌탈이 필요한 사용자는 블로그, 카페, 오픈마켓, 카카오 상담을 오가며 정보를 비교하지만, 자신의 조건을 한 번에 정리해 상담으로 연결할 간단한 진입점이 부족하다. 현재 저장소에는 리드 수집, 상담 요청, 결제 데모, 어드민이 이미 있지만 사용자-facing 카피와 입력 항목이 아직 `모두의렌탈` 도메인에 최적화되어 있지 않아 실제 렌탈 수요 신호를 측정하기 어렵다. 따라서 첫 실제 제품 use case로서 "렌탈 의도가 있는 사용자가 카테고리/긴급도/연락 선호를 남기고 상담으로 이어지는가"를 검증해야 한다.
+렌탈 사용자는 가격표보다 계약 구조를 이해하지 못해 손해를 보는 경우가 많다. 기존 렌탈몰은 상품을 많이 보여주지만, 내 상황에 맞는 shortlist와 해지 리스크 설명은 약하다. 상담 중심 판매 구조 탓에 사용자는 결정을 내리기 전에 이미 피로해지고, 운영자는 상담 전 결정도가 낮은 리드를 많이 받게 된다.
 
 ## Goal
 
-`모두의렌탈`을 단순 스타터 데모가 아니라 실제 렌탈 수요 검증용 제품으로 전환한다. 랜딩에서 리드, 리드에서 상담 요청까지 이어지는 핵심 퍼널이 카테고리 기반 rental intake 흐름으로 작동하는지 확인한다. 운영자가 어떤 카테고리, 어떤 유입 메시지, 어떤 연락 방식이 강한 신호로 이어지는지 어드민에서 바로 해석할 수 있게 만든다.
+`모두의렌탈`을 가격 비교몰이 아니라 계약 이해 + 3개 추천 + 상담 연결 제품으로 검증한다. 이 slice는 첫 4주 안에 정수기 public recommendation flow를 여는 것을 목표로 한다.
 
 ## In Scope
 
-- `모두의렌탈` 기준의 렌탈 도메인 카피와 CTA로 랜딩을 재작성한다.
-- 리드 폼에서 카테고리, 사용 맥락, 긴급도, 선호 연락 방식을 수집한다.
-- 상담 요청 플로우에서 리드의 핵심 맥락을 이어받아 더 강한 신호를 수집한다.
-- 어드민에서 새 qualification 필드를 확인할 수 있게 한다.
-- 핵심 퍼널 이벤트를 카테고리/긴급도 기준으로 나눠서 저장한다.
-- Rental Intake Funnel: 랜딩과 리드 폼을 `모두의렌탈` 카피와 렌탈 intake 질문으로 바꾸고, 카테고리/긴급도/연락 선호를 구조화해 저장한다.
+- `/` 랜딩을 정수기 추천 온보딩 진입점으로 재구성한다.
+- 대화형 온보딩 8문항 + 마지막 연락처/동의 단계로 lead를 생성한다.
+- `/result?leadId=<id>` route를 추가해 추천 결과 3개를 보여준다.
+- deterministic template 기반 추천 이유/계약 요약을 카드에 노출한다.
+- 결과 화면에서 카카오 상담과 상담 요청 handoff를 지원한다.
+- `/consult`는 `leadId`와 `productSlug`를 받아 prefill 모드로 동작한다.
+- `/admin/leads`와 `/admin/products`에서 추천/계약 데이터 read exposure를 넓힌다.
+- 추천/상담 퍼널에 필요한 analytics 이벤트와 payload를 확장한다.
 
 ## Out Of Scope
 
-- 결제 성공 자체를 PMF 판단의 핵심 기준으로 삼는 것
-- 정교한 추천 알고리즘이나 가격 비교 엔진
-- 렌탈 제휴사 관리 백오피스
-- CRM 자동화, 문자 발송, 콜센터 연동
-- 회원가입과 로그인 기반 개인화
-- 자동 견적 엔진 구축
-- 제휴사 inventory 연동
-- 관리자 인증과 권한 체계 도입
-- 실제 정산/환불/구독형 결제 운영
-- 다중 지역/다국어 지원
-- Consultation Handoff
-- Payment Intent Signal
+- 공기청정기 public flow
+- 상품 편집용 관리자 액션
+- LLM 자유 생성형 explainer
+- 결제/정산/계약 체결
+- 전국 설치 스케줄링
+- 별도 모바일 앱
 
 ## Target User
 
-가정용 정수기, 공기청정기, 비데, 생활가전 렌탈을 검토하는 개인 사용자와 사무실/소형 매장용 렌탈이 급하게 필요한 소상공인 또는 운영 담당자. "지금 어떤 제품을 얼마나 빨리 써야 하는지"는 분명하지만, 여러 판매 채널을 돌며 조건을 다시 설명하는 데 피로를 느끼는 사람이 핵심 대상이다.
+서울·수도권의 28~39세 직장인 중, 정수기 렌탈을 검토하고 있고 상담 전에 결론을 정리하고 싶은 사람이 핵심이다. 특히 1~2인 가구, 전월세 거주 비중이 높고, 2년 내 이사 가능성을 염두에 두는 사용자를 우선 타깃으로 둔다.
 
 ## User Flow
 
-- 핵심 대상 사용자가 /, /consult, /admin, /admin/leads 경로로 진입한다.
-- 랜딩과 리드 폼을 `모두의렌탈` 카피와 렌탈 intake 질문으로 바꾸고, 카테고리/긴급도/연락 선호를 구조화해 저장한다.
-- 사용자는 어떤 렌탈이 필요한지 짧은 입력만으로 전달하고 적절한 후속 상담을 기대할 수 있다.
+1. 사용자가 `/`에 진입해 가치 제안과 CTA를 확인한다.
+2. CTA 클릭 후 대화형 온보딩을 시작하고 8개 질문에 차례대로 답한다.
+3. 마지막 단계에서 이름, 전화번호, 선택 이메일, 동의를 제출한다.
+4. 서버는 lead와 qualification 데이터를 저장하고 `/result?leadId=<id>`로 보낸다.
+5. 결과 화면은 저장된 lead와 active products를 기준으로 추천 3개를 계산해 렌더링한다.
+6. 사용자는 카드별 CTA로 `/consult?leadId=<id>&productSlug=<slug>`에 진입한다.
+7. 상담 요청이 저장되면 운영자는 `/admin/leads`에서 추천 맥락과 상담 여부를 본다.
+
+## Locked Implementation Decisions
+
+- public recommendation category는 `정수기` 하나로 고정한다.
+- anonymous draft는 localStorage에 저장하고, 결과 데이터는 별도 draft table 없이 persisted lead로부터 서버에서 재계산한다.
+- 결과 route는 `/result?leadId=<id>`로 고정한다.
+- result primary CTA는 카카오 handoff이고, 상담 요청 폼은 secondary path다.
+- explanation layer는 deterministic template로 구현하고, LLM 후처리는 follow-up work item으로 미룬다.
+- launch 전제는 공개 feature option별 active product 3개 이상이다.
 
 ## Acceptance Criteria
 
-- [ ] 사용자가 `/`에서 `모두의렌탈` 기준의 렌탈 카피와 CTA를 보고, generic boilerplate/B2B SaaS 예시 없이 리드 폼을 이해할 수 있다.
-- [ ] 사용자가 필수 qualification 항목을 채워 리드를 제출하면 category, urgency, preferred contact가 함께 저장되고 성공 메시지를 본다.
-- [ ] 운영자가 `/admin` 또는 `/admin/leads`에서 새 qualification 필드를 확인해 후속 연락 우선순위를 판단할 수 있다.
-- [ ] 핵심 이벤트는 일반 page view와 구분되어 rental lead submission 및 consult request 신호로 기록된다.
+- [ ] 사용자가 `/`에서 "정수기 렌탈 계약을 대신 읽어주고 3개만 골라준다"는 가치를 이해하고 온보딩을 시작할 수 있다.
+- [ ] 사용자가 8개 추천 질문과 마지막 연락처/동의 단계를 완료하면 성공 메시지 없이 바로 `/result?leadId=<id>`로 이동한다.
+- [ ] `/result?leadId=<id>`는 정확히 3개의 추천 카드와 각 카드의 월 납부액, 할인 종료 후 금액, 의무사용기간, 전체 계약기간, 총 예상 납부액, 관리 방식, 해지 주의 포인트, 추천 이유를 보여준다.
+- [ ] 이사 가능성, 예산, 관리 선호, 필수 기능, 설치 공간 입력이 결과 정렬과 설명 문구에 반영된다.
+- [ ] 사용자가 결과 화면에서 카카오 또는 상담 요청 경로를 선택하면 선택 상품과 기본 맥락이 `/consult`에 이어진다.
+- [ ] 운영자가 `/admin/leads`에서 새 qualification 필드와 상담 전환 여부를 확인할 수 있다.
 
 ## Analytics Impact
 
-- `lead_form_submitted` 이벤트에 rental category, urgency, preferred contact 속성을 추가한다.
-- qualified lead 판별에 필요한 최소 속성 집합을 정의한다.
-- `consultation_requested` 이벤트가 리드에서 이어진 흐름인지 구분 가능해야 한다.
-- 어드민 지표에서 `landing -> lead -> consult` 전환을 카테고리별로 볼 수 있어야 한다.
+- `cta_clicked`는 hero CTA와 result CTA 구분이 가능해야 한다.
+- `onboarding_started`, `onboarding_completed`, `recommendation_result_viewed`가 내부 앱 이벤트로 저장되어야 한다.
+- `lead_form_submitted`는 recommendation input payload와 함께 저장되어야 한다.
+- `consultation_requested`는 `leadId`와 `selectedProductSlug`를 남겨 recommendation flow에서 온 상담인지 구분 가능해야 한다.
 
 ## Data Impact
 
-- lead 스키마 또는 관련 저장 구조에 `category`, `urgency`, `preferred_contact`, `usage_context` 필드가 필요하다.
-- consultation request가 lead qualification 문맥을 이어받을 수 있게 매핑 규칙이 필요하다.
-- mock seed와 local fallback 데이터도 새 필드를 반영해야 한다.
-- admin summary가 qualified lead 기준을 새 필드 기반으로 해석할 수 있어야 한다.
+- lead는 연락처 외에 recommendation qualification 필드를 저장해야 한다.
+- product는 계약 요약과 추천 점수화에 필요한 필드를 저장해야 한다.
+- consultation request는 optional `leadId`와 selected product context를 받아야 한다.
+- admin overview와 leads/products table은 새 필드를 읽을 수 있어야 한다.
 
 ## Affected Routes And Modules
 
-- apps/web/src/app/page.tsx
-- apps/web/src/app/consult/*
-- apps/web/src/app/admin/*
-- apps/web/src/app/admin/leads/*
-- apps/web/src/modules/lead/*
-- apps/web/src/modules/admin/*
-- packages/core/*
-- packages/db/*
-- packages/analytics/*
-- apps/web/src/lib/analytics.ts
+- `apps/web/src/app/page.tsx`
+- `apps/web/src/app/result/page.tsx`
+- `apps/web/src/app/consult/page.tsx`
+- `apps/web/src/app/admin/page.tsx`
+- `apps/web/src/app/admin/leads/*`
+- `apps/web/src/app/admin/products/*`
+- `apps/web/src/modules/landing/*`
+- `apps/web/src/modules/recommendation/*`
+- `apps/web/src/modules/consultation/*`
+- `apps/web/src/modules/admin/*`
+- `packages/core/*`
+- `packages/db/*`
+- `packages/analytics/*`
 
 ## Test Strategy
 
-- Generated 문서의 acceptance criteria를 기준으로 public behavior를 검증한다.
-- 주요 사용자 경로에 대한 수동 검증 또는 UI 테스트 포인트를 정리한다.
-- validation, persistence, analytics 영향에 대한 단위 테스트 또는 통합 테스트를 검토한다.
-- 변경 범위에 맞춰 `pnpm verify` 또는 `pnpm verify:full`을 선택한다.
+- 첫 failing test는 recommendation engine이 입력 조건에 따라 top 3를 안정적으로 반환하는 contract다.
+- 다음 slice는 `onboarding validation -> lead persistence -> result route rendering -> consult handoff -> admin exposure` 순서로 나눈다.
+- UI 수동 검증은 `랜딩 -> 이탈/복원 -> 결과 -> 상담 -> admin` 경로로 수행한다.
+- 변경 범위에 맞춰 최소 `pnpm test`, `pnpm typecheck`, `pnpm lint`와 관련 targeted test를 실행한다.
 
 ## Docs To Update
 
-- docs/prds/modurent-demand-validation.md
-- docs/work-items/20260315-rental-intake-funnel/brief.md
-- docs/work-items/20260315-rental-intake-funnel/feature-spec.md
+- `docs/prds/modurent-demand-validation.md`
+- `docs/work-items/20260315-rental-intake-funnel/brief.md`
+- `docs/work-items/20260315-rental-intake-funnel/ux-review.md`
+- `docs/work-items/20260315-rental-intake-funnel/frontend-spec.md`
+- `docs/work-items/20260315-rental-intake-funnel/backend-spec.md`
 
 ## Open Questions
 
-- 첫 버전에서 어떤 카테고리 세트를 기본값으로 둘지: 정수기/공기청정기/비데 중심으로 시작할지 여부
-- qualified lead의 최소 기준을 어떤 조합으로 볼지: category + urgency + consent만으로 충분한지 여부
-- preferred contact 기본값을 전화로 둘지, 카카오를 강조할지 여부
-- 상담 요청 단계에서 lead 데이터를 자동 prefill할지, 같은 세션 내에서만 이어받을지 여부
+- 없음. 남은 결정은 현재 work item 범위를 막지 않는 운영 후속 항목이다.
 
 ## Implementation Readiness
 
-Ready for implementation once the work item docs are reviewed.
+Ready. 현재 문서 세트 기준으로 구현 착수 가능하다.

@@ -1,20 +1,22 @@
 ---
-status: "draft"
+status: "approved"
 owner_role: "fe"
 source_request: "PRD: docs/prds/modurent-demand-validation.md"
 affected_paths:
   - "apps/web/src/app/page.tsx"
-  - "apps/web/src/app/consult/*"
-  - "apps/web/src/app/admin/*"
+  - "apps/web/src/app/result/page.tsx"
+  - "apps/web/src/app/consult/page.tsx"
+  - "apps/web/src/app/admin/page.tsx"
   - "apps/web/src/app/admin/leads/*"
-  - "apps/web/src/modules/lead/*"
+  - "apps/web/src/app/admin/products/*"
+  - "apps/web/src/modules/landing/*"
+  - "apps/web/src/modules/recommendation/*"
+  - "apps/web/src/modules/consultation/*"
   - "apps/web/src/modules/admin/*"
-  - "packages/core/*"
-  - "packages/db/*"
-  - "packages/analytics/*"
-  - "apps/web/src/lib/analytics.ts"
+  - "apps/web/src/shared/types/form-action.ts"
 dependencies:
-  - "docs/prds/modurent-demand-validation.md"
+  - "docs/work-items/20260315-rental-intake-funnel/brief.md"
+  - "docs/work-items/20260315-rental-intake-funnel/ux-review.md"
 skip_reason: null
 ---
 
@@ -22,44 +24,57 @@ skip_reason: null
 
 ## Affected Routes
 
-- /
-- /consult
-- /admin
-- /admin/leads
+- `/`
+- `/result`
+- `/consult`
+- `/admin`
+- `/admin/leads`
+- `/admin/products`
 
 ## Module Targets
 
-- apps/web/src/modules/lead/*
+- `apps/web/src/modules/landing/ui/landing-page.tsx`
+- `apps/web/src/modules/recommendation/ui/*`
+- `apps/web/src/modules/recommendation/model/*`
+- `apps/web/src/modules/recommendation/actions/*`
+- `apps/web/src/modules/consultation/ui/*`
+- `apps/web/src/modules/consultation/actions/*`
+- `apps/web/src/modules/admin/ui/*`
+- `apps/web/src/shared/types/form-action.ts`
 
 ## Component Plan
 
-- 기능 전용 UI와 상태는 `apps/web/src/modules/lead` 아래에 둔다.
-- Route entry는 얇게 유지하고 module UI를 조합만 하게 한다.
-- 관리자 화면 영향이 있으면 기존 admin shell과 nav 구조를 재사용한다.
+- `apps/web/src/app/page.tsx`는 그대로 얇게 유지하고, `LandingPage`가 hero와 `RecommendationOnboardingShell`을 조합한다.
+- `RecommendationOnboardingShell`은 client component로 두고, 현재 단계, 답변 draft, local draft 복원, 최종 제출 직전 검증을 담당한다.
+- 질문 정의, step order, progress 계산, draft 직렬화는 `apps/web/src/modules/recommendation/model/*`의 순수 함수로 둔다.
+- 마지막 제출은 `apps/web/src/modules/recommendation/actions/submit-recommendation-lead-action.ts`에서 수행한다.
+- `/result/page.tsx`는 server entry로 두고 `leadId`를 읽어 `RecommendationResultPage`를 렌더링한다.
+- `RecommendationResultPage`는 서버에서 계산된 추천 결과를 받아 렌더링하고, 카드 CTA 클릭 추적만 작은 client component로 분리한다.
+- `/consult/page.tsx`는 search params를 읽어 prefill 데이터를 `ConsultationRequestForm`에 넘긴다.
+- `/admin/leads`와 `/admin/products`는 read-only surface만 넓히고, 수정 폼은 추가하지 않는다.
 
 ## State And Events
 
-- client/server 경계는 route 제약이 아니라 실제 상호작용 필요성 기준으로 나눈다.
-- 필수 이벤트는 feature submit 또는 state transition 시점에만 남긴다.
-- 주요 상태 전이는 /, /consult, /admin, /admin/leads 경로 기준으로 정리한다.
+- anonymous draft는 브라우저 `localStorage`의 `modurent_recommendation_draft_v1` 키에 저장한다.
+- local draft는 첫 CTA 클릭 시 생성하고, 단계 이동과 값 변경 시 갱신한다.
+- 성공 제출 후 local draft는 즉시 삭제하고 `/result?leadId=<id>`로 이동한다.
+- `/result`는 local state에 의존하지 않고 `leadId`만으로 다시 열 수 있어야 한다.
+- `/consult` handoff는 `leadId`와 `productSlug` search param을 기준으로 prefill한다.
+- 내부 앱 이벤트는 `onboarding_started`, `onboarding_completed`, `recommendation_result_viewed`, `lead_form_submitted`, `consultation_requested`, `cta_clicked`를 사용한다.
+- 마케팅 브리지 호출은 브라우저에서 `lead_form_submitted`, `consultation_requested`에만 연결한다.
 
-## Test Plan
+## Test-First Plan
 
-- 새 또는 변경된 route의 happy path를 수동 검증한다.
-- 이벤트가 중복 없이 필요한 시점에만 기록되는지 확인한다.
-- 오류 상태, 빈 상태, pending 상태를 확인한다.
+- 먼저 failing test로 고정할 FE slice는 `recommendation/model`의 step progression, local draft restore, submit readiness 판정이다.
+- 다음으로 `/result`의 `leadId` 누락/잘못된 값 empty state를 route-level behavior로 고정한다.
+- `/consult` handoff prefill은 search params가 있을 때와 없을 때 두 경로를 나눠 검증한다.
+- manual verify는 `시작 -> 중간 이탈 -> 복원 -> 제출 -> 결과 -> 상담 handoff -> admin 노출` 순서로 돌린다.
+- 접근성 수동 검증은 키보드 진행, 단계 전환 포커스, 오류 메시지 연결, CTA focus order를 본다.
 
 ## Out Of Scope
 
-- 결제 성공 자체를 PMF 판단의 핵심 기준으로 삼는 것
-- 정교한 추천 알고리즘이나 가격 비교 엔진
-- 렌탈 제휴사 관리 백오피스
-- CRM 자동화, 문자 발송, 콜센터 연동
-- 회원가입과 로그인 기반 개인화
-- 자동 견적 엔진 구축
-- 제휴사 inventory 연동
-- 관리자 인증과 권한 체계 도입
-- 실제 정산/환불/구독형 결제 운영
-- 다중 지역/다국어 지원
-- Consultation Handoff
-- Payment Intent Signal
+- 상품 편집용 관리자 폼
+- 공기청정기 공개 추천 플로우
+- LLM 자유 생성형 결과 문장
+- 결제, 정산, 전국 설치 스케줄링
+- 새로운 범용 shared form framework 추가
