@@ -61,8 +61,10 @@ pnpm db:seed
 - `packages/core`: domain models, zod schemas, fixtures
 - `packages/db`: drizzle schema, repositories, seed
 - `packages/ui`: shared UI
+- `packages/ab-test`: cookie-based experiment assignment helpers
 - `packages/analytics`: track abstraction
 - `packages/error-logging`: error report abstraction
+- `packages/user-behavior-log`: reusable page_view/click/impression logging
 - `docs/product-squad`: 역할 기반 운영 규칙과 work item 템플릿
 - `docs/prds`: canonical PRD 문서
 - `docs/work-items`: 실제 작업별 brief, spec, review 산출물

@@ -28,7 +28,7 @@
 - FE 조직 방식은 strict FSD가 아니라 `Hybrid FSD Lite`
 - 기능별 코드는 우선 `apps/web/src/modules/*`에 둠
 - app-local 공용 코드는 `apps/web/src/shared/*`에 둠
-- 공통 타입/검증/DB/UI만 `packages/*`로 분리
+- 공통 타입/검증/DB/UI와 재사용 가능한 실험/행동 로깅 패키지만 `packages/*`로 분리
 - DB 기본 방향은 Supabase/Postgres이지만 로컬 fallback을 유지
 - 구현보다 실험 루프와 신호 품질을 우선
 
@@ -42,8 +42,10 @@
 - `packages/core`: 도메인 타입, zod, fixture
 - `packages/db`: schema, repository, seed
 - `packages/ui`: 공유 UI
+- `packages/ab-test`: 쿠키 기반 A/B 테스트 할당
 - `packages/analytics`: track 추상화
 - `packages/error-logging`: error report abstraction
+- `packages/user-behavior-log`: page_view/click/impression 로깅
 - `docs/prds`: canonical PRD source of truth
 - `ai/`: 벤더 중립 컨텍스트와 스킬
 

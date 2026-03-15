@@ -113,7 +113,9 @@ pnpm dev
 ### 운영/분석 기반
 
 - `leads`, `consultation_requests`, `products`, `experiments`, `page_events`, `payments` 기본 모델
+- cookie 기반 A/B test assignment helper
 - 내부 이벤트 저장 + optional analytics provider
+- page_view/click/impression behavior logger 패키지
 - optional marketing pixel script 로딩
 - optional error logging adapter
 
@@ -235,8 +237,10 @@ apps/web/src/
 packages/core           도메인 타입, zod 스키마, fixture
 packages/db             Drizzle 스키마, 저장소, local fallback, seed
 packages/ui             공유 UI 컴포넌트
+packages/ab-test        쿠키 기반 A/B 테스트 할당 helper
 packages/analytics      track() 추상화와 adapter
 packages/error-logging  report() 추상화와 adapter
+packages/user-behavior-log  page_view/click/impression 로깅 helper
 ```
 
 ### 문서와 AI 컨텍스트

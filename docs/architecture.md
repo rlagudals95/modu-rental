@@ -68,6 +68,12 @@
 - 기본 provider는 콘솔이며 `required`입니다.
 - 외부 provider는 필요할 때만 `optional`로 추가합니다.
 
+실험 배정과 행동 로깅도 제품 전용 정책 없이 재사용 가능한 패키지로 분리합니다.
+
+- `packages/ab-test`는 cookie 기반 variant assignment와 client/server assignment 조회를 제공합니다.
+- `packages/user-behavior-log`는 `page_view`, `click`, `impression` payload builder와 React wrapper를 제공합니다.
+- 두 패키지 모두 제품 전용 실험 정의나 sender 구현을 직접 포함하지 않습니다.
+
 ### 6. social auth는 optional starter로만 둔다
 
 - `/auth` route는 Google, Kakao, Naver 로그인을 빠르게 검증하기 위한 demo/starter입니다.
