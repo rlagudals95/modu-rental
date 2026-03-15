@@ -25,9 +25,29 @@ const selectClassName =
 const submitFailureMessage =
   "상담 요청 접수 중 문제가 발생했습니다. 잠시 후 다시 시도해 주세요.";
 
-export function ConsultationRequestForm() {
+type ConsultationPrefill = {
+  leadId?: string;
+  productSlug?: string;
+  productName?: string;
+};
+
+type ConsultationRequestFormProps = {
+  prefill?: ConsultationPrefill;
+};
+
+export function ConsultationRequestForm({ prefill }: ConsultationRequestFormProps) {
   const [serverMessage, setServerMessage] = useState<string | null>(null);
   const [isPending, setIsPending] = useState(false);
+  const initialValues: ConsultationRequestInput = {
+    ...defaultConsultationRequestValues,
+    productInterest: prefill?.productName
+      ? `${prefill.productName} 상담 요청`
+      : defaultConsultationRequestValues.productInterest,
+    notes: prefill?.productSlug
+      ? `추천 결과 상품 slug: ${prefill.productSlug}${prefill.leadId ? ` / leadId: ${prefill.leadId}` : ""}`
+      : defaultConsultationRequestValues.notes,
+  };
+
   const {
     register,
     handleSubmit,
@@ -36,7 +56,7 @@ export function ConsultationRequestForm() {
     formState: { errors },
   } = useForm<ConsultationRequestInput>({
     resolver: zodResolver(consultationRequestInputSchema),
-    defaultValues: defaultConsultationRequestValues,
+    defaultValues: initialValues,
   });
 
   const onSubmit = handleSubmit((values) => {
@@ -66,7 +86,7 @@ export function ConsultationRequestForm() {
           },
         });
 
-        reset(defaultConsultationRequestValues);
+        reset(initialValues);
         setServerMessage(result.message);
       } catch {
         setServerMessage(submitFailureMessage);
@@ -83,6 +103,11 @@ export function ConsultationRequestForm() {
         <p className="text-sm text-muted-foreground">
           리드만 보는 수준을 넘어, 실제 상담 의사와 맥락까지 확인하는 검증 단계입니다.
         </p>
+        {prefill?.productName ? (
+          <p className="rounded-xl border border-primary/20 bg-primary/5 px-3 py-2 text-xs text-primary">
+            추천 결과에서 선택한 상품: {prefill.productName}
+          </p>
+        ) : null}
       </CardHeader>
       <CardContent>
         <form className="space-y-5" onSubmit={onSubmit} data-testid="consult-form">

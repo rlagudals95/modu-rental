@@ -2,6 +2,7 @@ export interface ActionResult {
   ok: boolean;
   message: string;
   errors?: Record<string, string[] | undefined>;
+  nextPath?: string;
 }
 
 export interface AnalyticsContextInput {

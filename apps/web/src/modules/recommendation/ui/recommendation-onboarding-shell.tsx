@@ -167,6 +167,11 @@ export function RecommendationOnboardingShell() {
         }
 
         localStorage.removeItem(recommendationDraftStorageKey);
+        if (result.nextPath) {
+          window.location.href = result.nextPath;
+          return;
+        }
+
         setServerMessage("접수 완료! 지금 상담 요청으로 이어가면 추천 정확도를 더 높일 수 있어요.");
       } catch {
         setServerMessage("제출 중 문제가 발생했습니다. 잠시 후 다시 시도해 주세요.");

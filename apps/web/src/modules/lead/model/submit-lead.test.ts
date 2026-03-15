@@ -71,6 +71,7 @@ describe("submitLead", () => {
     expect(result).toEqual({
       ok: true,
       message: "문의가 접수되었습니다. 빠르게 검토 후 연락드릴게요.",
+      nextPath: expect.stringMatching(/^\/result\?leadId=/),
     });
     expect(appErrorLogger.report).toHaveBeenCalledWith(
       expect.objectContaining({

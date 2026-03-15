@@ -4,7 +4,15 @@ import { Card, CardContent, CardHeader, CardTitle } from "@pmf/ui";
 
 import { ConsultationRequestForm } from "@/modules/consultation/ui/consultation-request-form";
 
-export default function ConsultPage() {
+type ConsultPageProps = {
+  prefill?: {
+    leadId?: string;
+    productSlug?: string;
+    productName?: string;
+  };
+};
+
+export default function ConsultPage({ prefill }: ConsultPageProps) {
   return (
     <div className="mx-auto max-w-7xl px-6 pb-20 pt-10">
       <section className="grid gap-8 lg:grid-cols-[0.95fr_1.05fr] lg:items-start">
@@ -53,7 +61,7 @@ export default function ConsultPage() {
           </div>
         </div>
 
-        <ConsultationRequestForm />
+        <ConsultationRequestForm prefill={prefill} />
       </section>
     </div>
   );
