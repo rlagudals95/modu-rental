@@ -13,9 +13,13 @@ type FormValues = z.infer<typeof schema>;
 
 export function LeadForm({ onSubmitLead }: { onSubmitLead: (input: FormValues) => void }) {
   const [done, setDone] = useState(false);
-  const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<FormValues>({
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting }
+  } = useForm<FormValues>({
     resolver: zodResolver(schema),
-    defaultValues: { source: 'landing' }
+    defaultValues: { source: 'landing', note: '' }
   });
 
   return (
@@ -28,13 +32,22 @@ export function LeadForm({ onSubmitLead }: { onSubmitLead: (input: FormValues) =
           setDone(true);
         })}
       >
-        <h2 className="text-lg font-semibold">상담 리드 남기기</h2>
+        <h2 className="text-lg font-semibold">30초 빠른 상담 요청</h2>
+        <p className="text-sm text-slate-600">담당자가 확인 후 순차적으로 연락드립니다.</p>
+
         <Input placeholder="이름" {...register('name')} />
         {errors.name && <p className="text-xs text-red-600">이름을 2자 이상 입력해 주세요.</p>}
-        <Input placeholder="전화번호" {...register('phone')} />
-        <Input placeholder="이메일(선택)" {...register('email')} />
-        <Button type="submit" disabled={isSubmitting}>문의 남기기</Button>
-        {done && <p className="text-sm text-green-700">등록되었습니다. 곧 연락드릴게요.</p>}
+
+        <Input placeholder="연락처 (예: 01012345678)" {...register('phone')} />
+        {errors.phone && <p className="text-xs text-red-600">연락처를 정확히 입력해 주세요.</p>}
+
+        <Input placeholder="이메일 (선택)" {...register('email')} />
+        <Input placeholder="필요한 렌탈 품목/기간 (선택)" {...register('note')} />
+
+        <Button type="submit" disabled={isSubmitting}>
+          상담 연락 받기
+        </Button>
+        {done && <p className="text-sm text-green-700">접수 완료! 빠르게 연락드릴게요.</p>}
       </form>
     </Card>
   );
