@@ -23,6 +23,13 @@ import {
 import { MetricCard } from "@/modules/admin/ui/metric-card";
 import { StatusBadge } from "@/modules/admin/ui/status-badge";
 
+const channelLabels = {
+  call: "전화",
+  kakao: "카카오",
+  visit: "방문",
+  email: "이메일",
+} as const;
+
 export default async function AdminOverviewPage() {
   const [leads, consultations, products, experiments, pageEvents, payments] =
     await Promise.all([
@@ -42,6 +49,19 @@ export default async function AdminOverviewPage() {
     pageEvents,
     payments,
   });
+
+  const consultChannelCounts = consultations.reduce(
+    (acc, item) => {
+      acc[item.consultationType] += 1;
+      return acc;
+    },
+    {
+      call: 0,
+      kakao: 0,
+      visit: 0,
+      email: 0,
+    },
+  );
 
   return (
     <div className="space-y-8">
@@ -73,36 +93,20 @@ export default async function AdminOverviewPage() {
         />
       </div>
 
-      <div className="grid gap-4 xl:grid-cols-[1.1fr_0.9fr]">
+      <div className="grid gap-4 lg:grid-cols-2">
         <Card>
           <CardHeader>
-            <CardTitle>Latest leads</CardTitle>
+            <CardTitle>상담 채널 전환</CardTitle>
           </CardHeader>
           <CardContent>
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>이름</TableHead>
-                  <TableHead>관심 제품</TableHead>
-                  <TableHead>상태</TableHead>
-                  <TableHead>유입</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {leads.slice(0, 5).map((lead) => (
-                  <TableRow key={lead.id}>
-                    <TableCell className="font-medium text-slate-950">
-                      {lead.name}
-                    </TableCell>
-                    <TableCell>{lead.productInterest}</TableCell>
-                    <TableCell>
-                      <StatusBadge value={lead.status} />
-                    </TableCell>
-                    <TableCell>{lead.source}</TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
+            <div className="grid gap-3 sm:grid-cols-2">
+              {Object.entries(consultChannelCounts).map(([key, count]) => (
+                <div key={key} className="rounded-2xl border border-slate-200 p-4">
+                  <p className="text-sm text-slate-500">{channelLabels[key as keyof typeof channelLabels]}</p>
+                  <p className="font-mono text-2xl font-semibold text-slate-950">{count}</p>
+                </div>
+              ))}
+            </div>
           </CardContent>
         </Card>
 
@@ -135,6 +139,40 @@ export default async function AdminOverviewPage() {
                 아직 저장된 결제 시도가 없습니다.
               </p>
             ) : null}
+          </CardContent>
+        </Card>
+      </div>
+
+      <div className="grid gap-4 xl:grid-cols-[1.1fr_0.9fr]">
+        <Card>
+          <CardHeader>
+            <CardTitle>Latest leads</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>이름</TableHead>
+                  <TableHead>관심 제품</TableHead>
+                  <TableHead>상태</TableHead>
+                  <TableHead>유입</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {leads.slice(0, 5).map((lead) => (
+                  <TableRow key={lead.id}>
+                    <TableCell className="font-medium text-slate-950">
+                      {lead.name}
+                    </TableCell>
+                    <TableCell>{lead.productInterest}</TableCell>
+                    <TableCell>
+                      <StatusBadge value={lead.status} />
+                    </TableCell>
+                    <TableCell>{lead.source}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
           </CardContent>
         </Card>
       </div>

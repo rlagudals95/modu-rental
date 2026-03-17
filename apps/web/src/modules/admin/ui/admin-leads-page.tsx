@@ -14,26 +14,66 @@ import {
 
 import { StatusBadge } from "@/modules/admin/ui/status-badge";
 
-const summarizeRecommendationContext = (message?: string) => {
+const valueLabels: Record<string, string> = {
+  one: "1인",
+  two: "2인",
+  three_plus: "3인+",
+  owner: "자가",
+  jeonse_monthly: "전·월세",
+  yes: "있음",
+  no: "없음",
+  basic: "기본 정수",
+  hot: "온수",
+  ice: "얼음",
+  under_30k: "3만원 미만",
+  "30k_to_50k": "3~5만원",
+  "50k_to_70k": "5~7만원",
+  above_70k: "7만원+",
+  self: "셀프",
+  visit: "방문",
+  narrow: "좁음",
+  standard: "보통",
+  price: "가격",
+  maintenance: "관리",
+  cancellation: "해지/위약금",
+};
+
+const parseMessage = (message?: string) => {
   if (!message) {
-    return "-";
+    return {} as Record<string, string>;
   }
 
-  const requiredFeature = /requiredFeature=([^;]+)/.exec(message)?.[1];
-  const budgetBand = /monthlyBudgetBand=([^;]+)/.exec(message)?.[1];
-  const moving = /movingWithinTwoYears=([^;]+)/.exec(message)?.[1];
+  return Object.fromEntries(
+    message
+      .split(";")
+      .map((item) => item.trim())
+      .filter(Boolean)
+      .map((item) => {
+        const [key = "", value = ""] = item.split("=");
+        return [key.trim(), value.trim()] as const;
+      }),
+  );
+};
 
-  if (!requiredFeature && !budgetBand && !moving) {
-    return "-";
-  }
+const onboardingSummary = (message?: string) => {
+  const parsed = parseMessage(message);
 
-  return [
-    requiredFeature ? `기능:${requiredFeature}` : null,
-    budgetBand ? `예산:${budgetBand}` : null,
-    moving ? `이사:${moving}` : null,
-  ]
-    .filter(Boolean)
-    .join(" · ");
+  const fields: Array<[label: string, value?: string]> = [
+    ["가구", parsed.householdSize],
+    ["거주", parsed.housingType],
+    ["이사", parsed.movingWithinTwoYears],
+    ["기능", parsed.requiredFeature],
+    ["예산", parsed.monthlyBudgetBand],
+    ["관리", parsed.managementPreference],
+    ["공간", parsed.installationSpace],
+    ["우려", parsed.primaryConcern],
+  ];
+
+  const tokens = fields
+    .filter(([, value]) => value)
+    .map(([label, value]) => `${label}:${valueLabels[value!] ?? value}`);
+
+  return tokens.length > 0 ? tokens.join(" · ") : "-";
 };
 
 export default async function AdminLeadsPage() {
@@ -50,9 +90,8 @@ export default async function AdminLeadsPage() {
             <TableRow>
               <TableHead>이름</TableHead>
               <TableHead>연락처</TableHead>
-              <TableHead>이메일</TableHead>
               <TableHead>관심 제품</TableHead>
-              <TableHead>추천 컨텍스트</TableHead>
+              <TableHead>온보딩 요약</TableHead>
               <TableHead>상태</TableHead>
               <TableHead>유입</TableHead>
             </TableRow>
@@ -62,9 +101,10 @@ export default async function AdminLeadsPage() {
               <TableRow key={lead.id}>
                 <TableCell className="font-medium text-slate-950">{lead.name}</TableCell>
                 <TableCell>{lead.phone}</TableCell>
-                <TableCell>{lead.email ?? "-"}</TableCell>
                 <TableCell>{lead.productInterest}</TableCell>
-                <TableCell className="text-xs text-slate-600">{summarizeRecommendationContext(lead.message)}</TableCell>
+                <TableCell className="max-w-[360px] text-xs text-slate-600">
+                  {onboardingSummary(lead.message)}
+                </TableCell>
                 <TableCell>
                   <StatusBadge value={lead.status} />
                 </TableCell>
