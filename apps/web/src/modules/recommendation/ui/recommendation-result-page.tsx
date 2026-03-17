@@ -63,7 +63,17 @@ export function RecommendationResultPage({
                 <li>의무사용기간: {card.mandatoryMonths}개월</li>
                 <li>전체 계약기간: {card.totalMonths}개월</li>
                 <li>관리 방식: {card.managementType}</li>
+                <li>추천 점수: {card.score}</li>
               </ul>
+
+              <div className="rounded-xl border border-slate-200 bg-slate-50 p-3 text-xs text-slate-700">
+                <p className="mb-1 font-semibold text-slate-900">추천 근거</p>
+                <ul className="space-y-1">
+                  {card.scoreBreakdown.map((item) => (
+                    <li key={`${card.slug}-${item}`}>• {item}</li>
+                  ))}
+                </ul>
+              </div>
 
               <div className="rounded-xl border border-amber-200 bg-amber-50 p-3 text-sm text-amber-900">
                 <div className="flex items-start gap-2">
