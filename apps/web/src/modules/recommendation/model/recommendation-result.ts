@@ -7,6 +7,7 @@ export type RecommendationCard = {
   postDiscountFee: string;
   mandatoryMonths: number;
   totalMonths: number;
+  totalEstimatedCost: string;
   managementType: "방문 관리" | "셀프 관리";
   caution: string;
   reason: string;
@@ -20,6 +21,7 @@ const baseCards: RecommendationCard[] = [
     postDiscountFee: "월 42,900원",
     mandatoryMonths: 36,
     totalMonths: 60,
+    totalEstimatedCost: "약 2,334,000원",
     managementType: "방문 관리",
     caution: "할인 종료 후 금액 상승 폭을 반드시 확인하세요.",
     reason: "예산 3~5만원 구간과 기본/온수 수요에 안정적으로 맞는 모델입니다.",
@@ -31,6 +33,7 @@ const baseCards: RecommendationCard[] = [
     postDiscountFee: "월 57,900원",
     mandatoryMonths: 48,
     totalMonths: 72,
+    totalEstimatedCost: "약 3,808,800원",
     managementType: "방문 관리",
     caution: "의무사용기간이 길어 이사 가능성이 있으면 위약금 조건을 확인해야 합니다.",
     reason: "얼음 기능이 필요한 경우 후보군이 좁아져도 만족도가 높은 편입니다.",
@@ -42,6 +45,7 @@ const baseCards: RecommendationCard[] = [
     postDiscountFee: "월 32,900원",
     mandatoryMonths: 24,
     totalMonths: 48,
+    totalEstimatedCost: "약 1,504,800원",
     managementType: "셀프 관리",
     caution: "셀프 필터 교체 주기 관리가 필요합니다.",
     reason: "1~2인 가구와 좁은 설치 공간에서 부담이 적은 입문형 모델입니다.",

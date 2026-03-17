@@ -1,7 +1,7 @@
 "use client";
 
 import { Button, Card, CardContent, CardHeader, CardTitle, Input, Label } from "@pmf/ui";
-import { startTransition, useEffect, useMemo, useState } from "react";
+import { startTransition, useEffect, useMemo, useRef, useState } from "react";
 
 import { submitLeadAction } from "@/modules/lead/actions/submit-lead-action";
 import {
@@ -16,6 +16,7 @@ import {
   type RecommendationOnboardingAnswers,
   type RecommendationStepId,
 } from "@/modules/recommendation/model/onboarding-flow";
+import { trackEventAction } from "@/shared/api/track-event-action";
 import { getAnalyticsSessionId } from "@/shared/lib/analytics-session";
 
 const stepQuestionMap: Record<Exclude<RecommendationStepId, "contact">, string> = {
@@ -86,6 +87,7 @@ export function RecommendationOnboardingShell() {
   const [step, setStep] = useState<RecommendationStepId>("householdSize");
   const [isPending, setIsPending] = useState(false);
   const [serverMessage, setServerMessage] = useState<string | null>(null);
+  const hasTrackedOnboardingStart = useRef(false);
 
   useEffect(() => {
     const restored = restoreRecommendationDraft(localStorage.getItem(recommendationDraftStorageKey));
@@ -111,18 +113,35 @@ export function RecommendationOnboardingShell() {
   }, [draft]);
 
   const progress = getRecommendationProgress(step);
-  const currentOptions =
-    step === "contact" ? null : optionMap[step as keyof typeof optionMap];
+  const currentOptions = step === "contact" ? null : optionMap[step];
 
   const isContactReady = useMemo(() => {
     const { name, phone, consent } = draft.answers;
     return Boolean(name?.trim() && phone?.trim() && consent);
   }, [draft.answers]);
 
+  const trackOnboardingStartOnce = () => {
+    if (hasTrackedOnboardingStart.current) {
+      return;
+    }
+
+    hasTrackedOnboardingStart.current = true;
+    void trackEventAction({
+      eventName: "onboarding_started",
+      path: "/",
+      sessionId: getAnalyticsSessionId(),
+      properties: {
+        flow: "recommendation_onboarding",
+      },
+    });
+  };
+
   const handleSelect = (value: string) => {
     if (step === "contact") {
       return;
     }
+
+    trackOnboardingStartOnce();
 
     const nextDraft = updateRecommendationDraft(draft, {
       [step]: value,
@@ -165,6 +184,19 @@ export function RecommendationOnboardingShell() {
           setServerMessage(result.message);
           return;
         }
+
+        await trackEventAction({
+          eventName: "onboarding_completed",
+          path: "/",
+          sessionId: getAnalyticsSessionId(),
+          properties: {
+            flow: "recommendation_onboarding",
+            requiredFeature: draft.answers.requiredFeature,
+            monthlyBudgetBand: draft.answers.monthlyBudgetBand,
+            movingWithinTwoYears: draft.answers.movingWithinTwoYears,
+            primaryConcern: draft.answers.primaryConcern,
+          },
+        });
 
         localStorage.removeItem(recommendationDraftStorageKey);
         if (result.nextPath) {

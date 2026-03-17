@@ -57,6 +57,9 @@ export const experimentChannelSchema = z.enum([
 export const pageEventNameSchema = z.enum([
   "page_view",
   "cta_clicked",
+  "onboarding_started",
+  "onboarding_completed",
+  "recommendation_result_viewed",
   "lead_form_submitted",
   "consultation_requested",
   "payment_checkout_started",

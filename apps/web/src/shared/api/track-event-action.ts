@@ -9,6 +9,8 @@ export interface TrackEventActionInput {
   eventName: string;
   path: string;
   sessionId?: string;
+  leadId?: string;
+  experimentId?: string;
   properties?: Record<string, unknown>;
 }
 
@@ -20,6 +22,8 @@ export const trackEventAction = async (input: TrackEventActionInput) => {
       eventName,
       path: input.path,
       sessionId: input.sessionId,
+      leadId: input.leadId,
+      experimentId: input.experimentId,
       properties: input.properties,
     });
   } catch (error) {

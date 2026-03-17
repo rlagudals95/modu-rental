@@ -1,8 +1,13 @@
+"use client";
+
 import { AlertTriangle, ArrowRight, CheckCircle2 } from "lucide-react";
+import { useEffect } from "react";
 
 import { Badge, Button, Card, CardContent, CardHeader, CardTitle } from "@pmf/ui";
 
 import type { RecommendationCard } from "@/modules/recommendation/model/recommendation-result";
+import { trackEventAction } from "@/shared/api/track-event-action";
+import { getAnalyticsSessionId } from "@/shared/lib/analytics-session";
 import { TrackedLink } from "@/shared/ui/tracked-link";
 
 type RecommendationResultPageProps = {
@@ -16,6 +21,18 @@ export function RecommendationResultPage({
   leadName,
   cards,
 }: RecommendationResultPageProps) {
+  useEffect(() => {
+    void trackEventAction({
+      eventName: "recommendation_result_viewed",
+      path: "/result",
+      sessionId: getAnalyticsSessionId(),
+      leadId,
+      properties: {
+        recommendedSlugs: cards.map((card) => card.slug),
+      },
+    });
+  }, [cards, leadId]);
+
   return (
     <div className="mx-auto max-w-7xl px-6 pb-20 pt-10">
       <section className="space-y-3">
@@ -39,6 +56,7 @@ export function RecommendationResultPage({
               <div className="rounded-xl border border-border bg-muted/40 p-3 text-sm">
                 <p className="font-semibold text-slate-900">{card.monthlyFee}</p>
                 <p className="text-slate-600">할인 종료 후 {card.postDiscountFee}</p>
+                <p className="mt-1 text-slate-700">총 예상 납부액: {card.totalEstimatedCost}</p>
               </div>
 
               <ul className="space-y-1 text-sm text-slate-700">
