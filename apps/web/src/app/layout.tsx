@@ -42,8 +42,8 @@ export default function RootLayout({
           <main>{children}</main>
           <footer className="border-t border-border/80 bg-background/80">
             <div className="mx-auto flex max-w-7xl flex-col gap-2 px-6 py-8 text-sm text-muted-foreground md:flex-row md:items-center md:justify-between">
-              <p>PMF Boilerplate for side-project experimentation.</p>
-              <p>Default data mode: {appConfig.dataMode}</p>
+              <p>모두의렌탈 · 계약 리스크까지 보는 렌탈 추천</p>
+              <p>Data mode: {appConfig.dataMode}</p>
             </div>
           </footer>
         </div>
